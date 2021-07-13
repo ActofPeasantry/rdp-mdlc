@@ -53,7 +53,8 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="container-fluid">
+      @yield('header')
+      {{-- <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Blank Page</h1>
@@ -65,7 +66,7 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div><!-- /.container-fluid --> --}}
     </section>
 
     <!-- Main content -->
@@ -99,6 +100,14 @@
 <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
+
+{{-- LOGOUT --}}
+<script type="text/javascript">
+    function logout(){
+        event.preventDefault();
+        $("#logout-form").submit();
+    }
+</script>
 
  @stack('child-scripts')
  @yield('javascripts')

@@ -6,7 +6,22 @@
     <li class="nav-item d-none d-sm-inline-block">
       <a href="{{asset('assets/index3.html')}}" class="nav-link">Home</a>
     </li>
-    <li class="nav-item d-none d-sm-inline-block">
-      <a href="#" class="nav-link">Contact</a>
-    </li>
+</ul>
+
+<ul class="navbar-nav ml-auto">
+  @if(Route::has('login'))
+    @auth
+      <li class="nav-item">
+          <a href="" class="nav-link" onclick="logout()">logout</a>
+      </li>
+      <form id="logout-form" action="{{route('logout')}}" method="POST">@csrf</form>
+    @else
+      <li class="nav-item">
+          <a href="{{route('login')}}" class="nav-link">login</a>
+      </li>
+      <li class="nav-item">
+          <a href="{{route('register')}}" class="nav-link">register</a>
+      </li>
+    @endif
+  @endif
 </ul>
