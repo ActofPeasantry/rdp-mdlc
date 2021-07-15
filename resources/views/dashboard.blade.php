@@ -1,5 +1,18 @@
 @extends('layout/main')
 
+@section('page_name')
+    <h1>Dashboard</h1>
+@endsection
+
+@section('breadcrumb')
+{{-- Custom helpers, cek app/Helpers/helpers.php dan composer.json di bagian file jalankan composer dump-autoload utk memakainya --}}
+  {!! 
+    breadcrumb([
+      'Dashboard' => '#'
+    ])
+  !!}
+@endsection
+
 @section('content')
     <!-- Default box -->
     <div class="card">

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,15 @@ Route::get('/', function () {
 });
 
 Route::get('/main', function () {
-    return view('layout.main');
+    return view('dashboard');
 });
 
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Admin Routes
+//Nama route : admin.user.{{nama_function_controller}} ex: admin.user.index
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('/users', UserController::class);
+});
