@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -15,7 +16,9 @@ class UserController extends Controller
     public function index()
     {
         // dd('test controller');
-        return view('admin.index');
+        $users = User::all();
+        // dd($user);
+        return view('backend.admin.index', compact('users'));
     }
 
     /**
@@ -58,7 +61,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::all()->where('id',$id)->first();
+        // dd($users->id);
+        return view('backend.admin.edit', compact('user'));
     }
 
     /**
@@ -81,6 +86,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // dd("deleted");
+        $user= User::findOrFail($id);
+        $user->delete();
+        return redirect()->back();
     }
 }

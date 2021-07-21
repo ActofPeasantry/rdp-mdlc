@@ -18,9 +18,9 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/main', function () {
-    return view('dashboard');
-});
+// Route::get('/main', function () {
+//     return view('backend.dashboard');
+// });
 
 
 

@@ -1,4 +1,4 @@
-@extends('layout/main')
+@extends('layout.main')
 
 @section('page_name')
     <h1>Dashboard</h1>
