@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -28,7 +29,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        $roles = Role::all();
+        return view('backend.admin.create', compact('users', 'roles'));
     }
 
     /**
@@ -39,7 +42,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::create($request->except(['_Token', 'roles']));
+        // memasukkan data ke tabel transaksaksi (user_role)
+        $user->roles()->sync($request->roles);
+
+        return redirect(route('admin.users.index'));
     }
 
     /**
@@ -61,9 +68,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::all()->where('id',$id)->first();
-        // dd($users->id);
-        return view('backend.admin.edit', compact('user'));
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        // dd($user->roles->pluck('id')->toArray());
+        return view('backend.admin.edit', compact('user', 'roles'));
     }
 
     /**
@@ -75,7 +83,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->update($request->except(['_Token', 'roles']));
+        // memasukkan data ke tabel transaksaksi (user_role)
+        $user->roles()->sync($request->roles);
+
+        return redirect(route('admin.users.index'));
     }
 
     /**

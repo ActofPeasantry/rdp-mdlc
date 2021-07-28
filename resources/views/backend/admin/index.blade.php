@@ -25,7 +25,15 @@
 
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">DataTable with default features</h3>
+            <div class="row">
+                <h3 class="card-title">List User</h3>
+                <div class="ml-auto col-lg-2">
+                    <a href={{route("admin.users.create")}} class="btn btn-block btn-outline-success btn-sm">
+                        <i class="far fa-plus-square"></i>
+                        Tambah User
+                    </a>
+                </div>
+            </div>
           </div>
           <!-- /.card-header -->
           <div class="card-body">

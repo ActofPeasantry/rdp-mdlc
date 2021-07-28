@@ -20,18 +20,16 @@
 
 @section('content')
     <!-- Default box -->
-    <div class="card">
+    <div class="card col-md-10">
         <div class="card-header">
-          <h3 class="card-title">Edit User</h3>
+          <h3 class="card-title">Menambahkan User</h3>
         </div>
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('admin.users.update', $user->id) }}">
+                <form method="POST" action="{{ route('admin.users.store') }}">
                     @csrf
-                    @method("PATCH")
-
-                    @include('backend.admin.include.form')
+                    @include('backend.admin.include.form', ['create' => true])
 
                 </form>
 
@@ -39,7 +37,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          Footer
+
         </div>
         <!-- /.card-footer-->
     </div>
