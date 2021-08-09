@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
+use App\Models\Student;
 
-class UserSeeder extends Seeder
+class StudentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +16,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->times(10)->create();
+        Student::factory()->times(5)->create();
     }
 }

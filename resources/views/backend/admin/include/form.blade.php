@@ -1,5 +1,5 @@
 {{-- Name --}}
-<div class="form-group mb-3">
+{{-- <div class="form-group mb-3">
     <label class="form-label" for="name">Nama User</label>
     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
     value="{{ old('name') }} @isset($user) {{$user->name}}  @endisset"
@@ -10,7 +10,7 @@
         <strong>{{ $message }}</strong>
     </span>
     @enderror
-</div>
+</div> --}}
 
 {{-- Username --}}
 <div class="form-group mb-3">

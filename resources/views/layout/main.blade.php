@@ -20,7 +20,7 @@
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-   
+
     @include('layout/navbar_left')
     {{-- @include('layout/navbar_right') --}}
 
@@ -120,4 +120,5 @@
  @yield('javascripts')
 
 </body>
+    @flasher_render
 </html>

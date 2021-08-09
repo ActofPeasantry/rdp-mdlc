@@ -51,4 +51,13 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Role');
     }
+
+    public function admins()
+    {
+        return $this->hasOne('App\Models\Admin');
+    }
+
+    public function hasAnyRole($role){
+        return null !== $this->roles()->where('name', $role)->first();
+    }
 }

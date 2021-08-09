@@ -28,6 +28,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Admin Routes
 //Nama route : admin.user.{{nama_function_controller}} ex: admin.user.index
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::resource('/users', UserController::class);
 });

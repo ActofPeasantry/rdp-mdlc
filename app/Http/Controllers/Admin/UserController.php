@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use Flasher\Toastr\Prime\ToastrFactory;
+use Flasher\Prime\FlasherInterface;
 
 class UserController extends Controller
 {
@@ -40,11 +42,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ToastrFactory  $flasher)
     {
         $user = User::create($request->except(['_Token', 'roles']));
         // memasukkan data ke tabel transaksaksi (user_role)
         $user->roles()->sync($request->roles);
+        $flasher->addSuccess('Data berhasil ditambah');
 
         return redirect(route('admin.users.index'));
     }
@@ -81,13 +84,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, ToastrFactory  $flasher)
     {
         $user = User::findOrFail($id);
         $user->update($request->except(['_Token', 'roles']));
         // memasukkan data ke tabel transaksaksi (user_role)
         $user->roles()->sync($request->roles);
-
+        $flasher->addSuccess('Data berhasil diubah');
         return redirect(route('admin.users.index'));
     }
 
@@ -97,11 +100,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,ToastrFactory  $flasher)
     {
         // dd("deleted");
         $user= User::findOrFail($id);
         $user->delete();
+        $flasher->addWarning('Data dihapus');
         return redirect()->back();
     }
 }

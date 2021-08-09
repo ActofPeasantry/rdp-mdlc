@@ -4,13 +4,26 @@
     <!-- Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library -->
 
+
     <li class="nav-item">
-      <a href="{{route('admin.users.index')}}" class="nav-link">
-        <i class="nav-icon fas fa-users"></i>
-        <p>
-          Manage User
-        </p>
-      </a>
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-user-cog"></i>
+            <p>
+                Admin
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+
+        <ul class="nav nav-treeview">
+            <li class="na-item">
+                <a href="{{route('admin.users.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>
+                    Manage User
+                  </p>
+                </a>
+            </li>
+        </ul>
     </li>
 
     <li class="nav-item">
@@ -43,6 +56,6 @@
       </ul>
     </li>
 
-    
-    
+
+
 </ul>
