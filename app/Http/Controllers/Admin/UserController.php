@@ -21,7 +21,7 @@ class UserController extends Controller
         // dd('test controller');
         $users = User::all();
         // dd($user);
-        return view('backend.admin.index', compact('users'));
+        return view('backend.admin.manage_user.index', compact('users'));
     }
 
     /**
@@ -33,7 +33,7 @@ class UserController extends Controller
     {
         $users = User::all();
         $roles = Role::all();
-        return view('backend.admin.create', compact('users', 'roles'));
+        return view('backend.admin.manage_user.create', compact('users', 'roles'));
     }
 
     /**
@@ -46,7 +46,7 @@ class UserController extends Controller
     {
         $user = User::create($request->except(['_Token', 'roles']));
         // memasukkan data ke tabel transaksaksi (user_role)
-        $user->roles()->sync($request->roles);
+        // $user->roles()->sync($request->roles);
         $flasher->addSuccess('Data berhasil ditambah');
 
         return redirect(route('admin.users.index'));
@@ -74,7 +74,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $roles = Role::all();
         // dd($user->roles->pluck('id')->toArray());
-        return view('backend.admin.edit', compact('user', 'roles'));
+        return view('backend.admin.manage_user.edit', compact('user', 'roles'));
     }
 
     /**

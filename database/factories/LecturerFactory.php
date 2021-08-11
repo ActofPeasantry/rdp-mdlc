@@ -27,7 +27,7 @@ class LecturerFactory extends Factory
         return [
             'name' => $this->faker->name,
             'user_id' => $user->id,
-            'nik' =>  rand(1111111111,9999999999),
+            'nip' =>  rand(1111111111,9999999999),
             'birthplace' =>  $this->faker->city,
             'address' =>  $this->faker->address,
             'phone' =>  $this->faker->phoneNumber,

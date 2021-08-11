@@ -54,13 +54,13 @@
 @endisset
 
 {{-- Roles --}}
-<div class="mb-3">
+{{-- <div class="mb-3">
     <label class="form-label" for="roles[]">Roles</label>
     @foreach ($roles as $role)
         <div class="form-check">
             <input id="{{$role->name}}" name="roles[]" class="form-check-input" type="checkbox"
             value="{{$role->id}}"
-            {{-- Menceklis role sesuai database --}}
+            //Menceklis role sesuai database
             @isset($user)
                 @if (in_array($role->id, $user->roles->pluck('id')->toArray() ))
                     checked
@@ -69,7 +69,7 @@
             <label class="form-check-label" for="roles[]">{{$role->name}}</label>
         </div>
     @endforeach
-</div>
+</div> --}}
 
 <div class="row">
     <div class="col-md-6">

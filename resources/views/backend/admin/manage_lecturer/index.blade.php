@@ -3,7 +3,7 @@
 
 
 @section('page_name')
-    <h1>User Management</h1>
+    <h1>Kelola Dosen</h1>
 @endsection
 
 @section('breadcrumb')
@@ -12,7 +12,7 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'User Management' => '#'
+            'Kelola Dosen' => '#'
         )
     )
   !!}
@@ -28,9 +28,9 @@
             <div class="row">
                 <h3 class="card-title">List User</h3>
                 <div class="ml-auto col-lg-2">
-                    <a href={{route("admin.users.create")}} class="btn btn-block btn-outline-success btn-sm">
+                    <a href={{route("admin.lecturers.create")}} class="btn btn-block btn-outline-success btn-sm">
                         <i class="far fa-plus-square"></i>
-                        Tambah User
+                        Tambah Dosen
                     </a>
                 </div>
             </div>
@@ -38,7 +38,7 @@
           <!-- /.card-header -->
           <div class="card-body">
             <table id="table_id" class="display table table-bordered table-hover dataTable dtr-inline">
-                <thead>
+                <thead class="text-center">
                     <tr>
                         <th>No.</th>
                         <th>Nama</th>
@@ -47,26 +47,27 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-center">
                   <?php $n=1; ?>
-                  @foreach ($users as $user)
+                  @foreach ($lecturers as $lecturer)
                     <tr>
                       <td>{{$n}}</td>
-                      <td>{{$user->username}}</td>
-                      <td>{{$user->email}}</td>
+                      <td>{{$lecturer->name}}</td>
+                      <td>{{$lecturer->users->username}}</td>
+                      <td>{{$lecturer->users->email}}</td>
                       <td >
                         <div class="col-xs-1" align="center">
-                          <a href= {{route('admin.users.edit', [$user->id])}} class="btn btn-sm btn-info">
+                          <a href= {{route('admin.lecturers.edit', [$lecturer->id])}} class="btn btn-sm btn-info">
                             <i class="fa fa-pencil-alt"></i>
                             Ubah
                           </a>
 
-                          <button type='button' class="btn btn-sm btn-danger" onclick="delete_user({{$user->id}})" >
+                          <button type='button' class="btn btn-sm btn-danger" onclick="delete_lecturer({{$lecturer->id}})" >
                             <i class="far fa-trash-alt"></i>
                             Hapus
                           </button>
 
-                          <form id="delete-user-form-{{$user->id}}" action="{{route('admin.users.destroy', $user->id)}}" method="POST">
+                          <form id="delete-user-form-{{$lecturer->id}}" action="{{route('admin.lecturers.destroy', $lecturer->user_id)}}" method="POST">
                             @csrf
                             @method("DELETE")
                           </form>
@@ -98,7 +99,7 @@
     </script>
 
     <script>
-        function delete_user($id) {
+        function delete_lecturer($id) {
             event.preventDefault();
             if(confirm("Apakah anda ingin menghapus data ini?")){
                 $("#delete-user-form-" + $id).submit();

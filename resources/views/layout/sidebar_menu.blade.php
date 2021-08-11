@@ -19,7 +19,18 @@
                 <a href="{{route('admin.users.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-users"></i>
                   <p>
-                    Manage User
+                    Kelola User
+                  </p>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="nav nav-treeview">
+            <li class="na-item">
+                <a href="{{route('admin.lecturers.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>
+                    Kelola Dosen
                   </p>
                 </a>
             </li>

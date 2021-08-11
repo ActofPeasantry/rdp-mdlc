@@ -11,8 +11,8 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'User Management' => route('admin.users.index'),
-            'Edit User' => '#'
+            'kelola User' => route('admin.users.index'),
+            'Tambah User' => '#'
         )
     )
   !!}
@@ -36,10 +36,6 @@
             </div>
         </div>
         <!-- /.card-body -->
-        <div class="card-footer">
-
-        </div>
-        <!-- /.card-footer-->
     </div>
     <!-- /.card -->
 @endsection

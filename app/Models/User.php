@@ -19,7 +19,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
-        'name',
         'email',
         'password',
     ];
@@ -55,6 +54,16 @@ class User extends Authenticatable
     public function admins()
     {
         return $this->hasOne('App\Models\Admin');
+    }
+
+    public function lecturers()
+    {
+        return $this->hasOne('App\Models\Lecturer');
+    }
+
+    public function students()
+    {
+        return $this->hasOne('App\Models\Student');
     }
 
     public function hasAnyRole($role){

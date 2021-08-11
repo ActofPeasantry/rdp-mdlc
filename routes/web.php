@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\LecturerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Nama route : admin.user.{{nama_function_controller}} ex: admin.user.index
 Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::resource('/users', UserController::class);
+    Route::resource('/lecturers', LecturerController::class);
 });
