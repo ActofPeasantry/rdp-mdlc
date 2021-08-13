@@ -3,6 +3,40 @@
 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <!-- Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library -->
+
+
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-user-cog"></i>
+            <p>
+                Admin
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+
+        <ul class="nav nav-treeview">
+            <li class="na-item">
+                <a href="{{route('admin.users.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>
+                    Kelola User
+                  </p>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="nav nav-treeview">
+            <li class="na-item">
+                <a href="{{route('admin.lecturers.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>
+                    Kelola Dosen
+                  </p>
+                </a>
+            </li>
+        </ul>
+    </li>
+
     <li class="nav-item">
       <a href="#" class="nav-link">
         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -32,5 +66,7 @@
         </li>
       </ul>
     </li>
-    
+
+
+
 </ul>

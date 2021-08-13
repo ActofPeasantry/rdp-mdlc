@@ -23,6 +23,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('layout.main');
+        $user = auth()->user();
+        // dd($user);
+        return view('backend.dashboard');
     }
 }
