@@ -125,7 +125,7 @@ class LecturerController extends Controller
             $lecturer->address = $request->address;
         $lecturer->save();
 
-        $flasher->addSuccess('Data berhasil ditambah');
+        $flasher->addSuccess('Data berhasil diubah');
 
         return redirect(route('admin.lecturers.index'));
     }
@@ -138,7 +138,7 @@ class LecturerController extends Controller
      */
     public function destroy(ToastrFactory  $flasher, $id)
     {
-        $user= User::find($id);
+        $user= User::findorFail($id);
         // dd($user);
         $user->delete();
         $flasher->addWarning('Data dihapus');

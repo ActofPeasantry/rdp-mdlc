@@ -11,8 +11,8 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'Kelola Dosen' => route('admin.students.index'),
-            'Edit Dosen' => '#'
+            'Kelola Admin' => route('admin.admins.index'),
+            'Edit Admin' => '#'
         )
     )
   !!}
@@ -27,11 +27,11 @@
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('admin.students.update', $student->id) }}">
+                <form method="POST" action="{{ route('admin.admins.update', $admin->id) }}">
                     @csrf
                     @method("PATCH")
 
-                    @include('backend.admin.include.student_form', ['edit' => true])
+                    @include('backend.admin.include.admin_form', ['edit' => true])
 
                 </form>
 
