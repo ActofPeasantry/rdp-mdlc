@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\LecturerController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +34,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::resource('/users', UserController::class);
     Route::resource('/lecturers', LecturerController::class);
+    Route::resource('/students', StudentController::class);
+    Route::resource('/admins', AdminController::class);
 });
