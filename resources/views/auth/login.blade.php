@@ -68,7 +68,10 @@
         @endif
     </p>
     <p class="mb-0">
-        <a href="{{ route('register') }}" class="text-center">Make a new account</a>
+        <a href="{{ route('register') }}?role=dosen" class="text-center">Make a new lecturer account</a>
+    </p>
+    <p class="mb-0">
+        <a href="{{ route('register') }}?role=mahasiswa" class="text-center">Make a new student account</a>
     </p>
 
     @endsection
