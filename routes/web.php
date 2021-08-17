@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\LecturerController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\GroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +37,10 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::resource('/lecturers', LecturerController::class);
     Route::resource('/students', StudentController::class);
     Route::resource('/admins', AdminController::class);
-    Route::resource('/class', ClassController::class);
 });
+
+Route::get('/groups/join', [GroupController::class, 'join'])->name('groups.join');
+Route::resource('/groups', GroupController::class);
+Route::get('/groups/{id}/materi', [GroupController::class, 'materi'])->name('groups.materi');
+Route::get('/groups/{id}/members', [GroupController::class, 'members'])->name('groups.members');
+Route::post('/groups/storeJoin', [GroupController::class, 'storeJoin'])->name('groups.storeJoin');

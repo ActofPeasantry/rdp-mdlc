@@ -22,14 +22,14 @@
     <!-- Default box -->
     <div class="card col-md-10">
         <div class="card-header">
-          <h3 class="card-title">Menambahkan Dosen</h3>
+          <h3 class="card-title">Menambahkan Kelas</h3>
         </div>
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('admin.lecturers.store') }}">
+                <form method="POST" action="{{ route('groups.store') }}">
                     @csrf
-                    @include('backend.admin.include.admin_form', ['create' => true])
+                    @include('backend.group.group_form', ['create' => true])
 
                 </form>
 

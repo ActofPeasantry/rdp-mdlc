@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-        //Flasher\Laravel\FlasherServiceProvider::class,
+        Flasher\Laravel\FlasherServiceProvider::class,
 
 
         /*

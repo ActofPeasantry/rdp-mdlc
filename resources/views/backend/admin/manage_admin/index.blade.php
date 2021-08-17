@@ -3,7 +3,7 @@
 
 
 @section('page_name')
-    <h1>Kelola Mahasiswa</h1>
+    <h1>Kelola Admin</h1>
 @endsection
 
 @section('breadcrumb')
@@ -12,7 +12,7 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'Kelola Mahasiswa' => '#'
+            'Kelola Admin' => '#'
         )
     )
   !!}
@@ -28,9 +28,9 @@
             <div class="row">
                 <h3 class="card-title">List User</h3>
                 <div class="ml-auto col-lg-2">
-                    <a href={{route("admin.students.create")}} class="btn btn-block btn-outline-success btn-sm">
+                    <a href={{route("admin.admins.create")}} class="btn btn-block btn-outline-success btn-sm">
                         <i class="far fa-plus-square"></i>
-                        Tambah Mahasiswa
+                        Tambah Admin
                     </a>
                 </div>
             </div>
@@ -49,25 +49,25 @@
                 </thead>
                 <tbody class="text-center">
                   <?php $n=1; ?>
-                  @foreach ($students as $student)
+                  @foreach ($admins as $admin)
                     <tr>
                       <td>{{$n}}</td>
-                      <td>{{$student->name}}</td>
-                      <td>{{$student->users->username}}</td>
-                      <td>{{$student->users->email}}</td>
+                      <td>{{$admin->name}}</td>
+                      <td>{{$admin->users->username}}</td>
+                      <td>{{$admin->users->email}}</td>
                       <td >
                         <div class="col-xs-1" align="center">
-                          <a href= {{route('admin.students.edit', [$student->id])}} class="btn btn-sm btn-info">
+                          <a href= {{route('admin.admins.edit', [$admin->id])}} class="btn btn-sm btn-info">
                             <i class="fa fa-pencil-alt"></i>
                             Ubah
                           </a>
 
-                          <button type='button' class="btn btn-sm btn-danger" onclick="delete_student({{$student->id}})" >
+                          <button type='button' class="btn btn-sm btn-danger" onclick="delete_admin({{$admin->id}})" >
                             <i class="far fa-trash-alt"></i>
                             Hapus
                           </button>
 
-                          <form id="delete-user-form-{{$student->id}}" action="{{route('admin.students.destroy', $student->user_id)}}" method="POST">
+                          <form id="delete-user-form-{{$admin->id}}" action="{{route('admin.admins.destroy', $admin->user_id)}}" method="POST">
                             @csrf
                             @method("DELETE")
                           </form>
@@ -99,7 +99,7 @@
     </script>
 
     <script>
-        function delete_student($id) {
+        function delete_admin($id) {
             event.preventDefault();
             if(confirm("Apakah anda ingin menghapus data ini?")){
                 $("#delete-user-form-" + $id).submit();
