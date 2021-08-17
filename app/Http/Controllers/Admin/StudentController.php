@@ -45,14 +45,15 @@ class StudentController extends Controller
         $user = User::create($request->except([
             '_Token',
             'nim',
-            'name',
             'birthplace',
             'phone',
             'address',
             'user_id',])
         );
 
-        // dd($user->id);
+        
+
+
         $student = new Student;
             $student->nim = $request->nim;
             $student->name = $request->name;
