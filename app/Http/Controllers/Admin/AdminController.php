@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\User;
+use Flasher\Toastr\Prime\ToastrFactory;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -14,7 +17,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $admins = Admin::all();
+        // dd($lecturers->find(2)->users);
+        return view('backend.admin.manage_admin.index', compact('admins'));
     }
 
     /**
@@ -24,7 +29,9 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        $admin = Admin::all();
+        // dd($lecturers->find(2)->users);
+        return view('backend.admin.manage_admin.create', compact('admin'));
     }
 
     /**
@@ -33,9 +40,30 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ToastrFactory  $flasher)
     {
-        //
+        $user = User::create($request->except([
+            '_Token',
+            'name',
+            'birthplace',
+            'phone',
+            'address',
+            'user_id',])
+        );
+
+        // dd($user->id);
+        $admin = new Admin;
+            $admin->name = $request->name;
+            $admin->birthplace = $request->birthplace;
+            $admin->phone = $request->phone;
+            $admin->address = $request->address;
+
+            $admin->user_id = $user->id;
+        $admin->save();
+
+        $flasher->addSuccess('Data berhasil ditambah');
+
+        return redirect(route('admin.admins.index'));
     }
 
     /**
@@ -57,7 +85,10 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        $admin = Admin::findOrfail($id);
+        $user =  User::all();        // $users = User::all();
+        // dd($lecturer->name);
+        return view('backend.admin.manage_admin.edit', compact('admin', 'user'));
     }
 
     /**
@@ -67,9 +98,32 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ToastrFactory  $flasher, $id)
     {
-        //
+        $user = User::findOrFail($request->user_id);
+
+        $user->update($request->except([
+            '_Token',
+            'name',
+            'birthplace',
+            'phone',
+            'address',
+            'user_id',])
+        );
+
+        // dd($user->id);
+        $admin = Admin::findOrFail($id);
+            $admin->name = $request->name;
+            $admin->birthplace = $request->birthplace;
+            $admin->phone = $request->phone;
+            $admin->address = $request->address;
+
+            $admin->user_id = $user->id;
+        $admin->save();
+
+        $flasher->addSuccess('Data berhasil ditambah');
+
+        return redirect(route('admin.admins.index'));
     }
 
     /**
@@ -78,8 +132,12 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ToastrFactory  $flasher, $id)
     {
-        //
+        $user= User::findorFail($id);
+        // dd($user);
+        $user->delete();
+        $flasher->addWarning('Data dihapus');
+        return redirect()->back();
     }
 }

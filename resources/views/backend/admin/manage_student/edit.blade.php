@@ -11,8 +11,8 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'Kelola Dosen' => route('admin.students.index'),
-            'Edit Dosen' => '#'
+            'Kelola Mahasiswa' => route('admin.students.index'),
+            'Edit Mahasiswa' => '#'
         )
     )
   !!}

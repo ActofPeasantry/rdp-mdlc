@@ -29,7 +29,7 @@
 
                 <form method="POST" action="{{ route('admin.lecturers.store') }}">
                     @csrf
-                    @include('backend.admin.include.lecturer_form', ['create' => true])
+                    @include('backend.admin.include.admin_form', ['create' => true])
 
                 </form>
 

@@ -11,8 +11,8 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'Kelola Dosen' => route('admin.admins.index'),
-            'Tambah Dosen' => '#'
+            'Kelola Admin' => route('admin.admins.index'),
+            'Tambah Admin' => '#'
         )
     )
   !!}
@@ -22,7 +22,7 @@
     <!-- Default box -->
     <div class="card col-md-10">
         <div class="card-header">
-          <h3 class="card-title">Menambahkan Mahasiswa</h3>
+          <h3 class="card-title">Menambahkan Admin</h3>
         </div>
         <div class="card-body">
             <div class="container-fluid">

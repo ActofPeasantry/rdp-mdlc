@@ -126,7 +126,7 @@ class StudentController extends Controller
             $student->user_id = $user->id;
         $student->save();
 
-        $flasher->addSuccess('Data berhasil ditambah');
+        $flasher->addSuccess('Data berhasil diubah');
 
         return redirect(route('admin.students.index'));
     }
@@ -139,7 +139,7 @@ class StudentController extends Controller
      */
     public function destroy(ToastrFactory  $flasher, $id)
     {
-        $user= User::find($id);
+        $user= User::findorFail($id);
         // dd($user);
         $user->delete();
         $flasher->addWarning('Data dihapus');
