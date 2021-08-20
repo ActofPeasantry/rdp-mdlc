@@ -17,8 +17,10 @@ class AdminController extends Controller
      */
     public function index()
     {
+        // Auth::user();
+        // $user =User::find(1);
+        // dd($user->admins->first());
         $admins = Admin::all();
-        // dd($lecturers->find(2)->users);
         return view('backend.admin.manage_admin.index', compact('admins'));
     }
 

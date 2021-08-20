@@ -10,6 +10,7 @@ use Flasher\Toastr\Prime\ToastrFactory;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class GroupController extends Controller
 {
@@ -42,6 +43,7 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
+        // dd(Auth::user());
         $kode_unik = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890zyxwvutsrqponmlkjihgfedcba"), 14, 10);
 
         $group = new Group;
@@ -83,7 +85,7 @@ class GroupController extends Controller
         }else{
             //$flasher->addFailed('Kelas tidak tersedia');
         }
-        
+
         return redirect(route('groups.index'));
     }
 
