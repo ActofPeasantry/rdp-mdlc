@@ -62,7 +62,7 @@
     @endcan
 
     <li class="nav-item">
-      <a href="{{route('groups.index')}}" class="nav-link">
+      <a href="{{route('lecturer.classrooms.index')}}" class="nav-link">
         <i class="fas fa-chalkboard-teacher"></i>
         <p>
           Kelas

@@ -27,9 +27,9 @@
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('groups.store') }}">
+                <form method="POST" action="{{ route('lecturer.classrooms.store') }}">
                     @csrf
-                    @include('backend.group.group_form', ['create' => true])
+                    @include('backend.lecturer.classroom.group_form', ['create' => true])
 
                 </form>
 

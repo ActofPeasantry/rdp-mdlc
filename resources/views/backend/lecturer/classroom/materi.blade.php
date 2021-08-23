@@ -58,7 +58,7 @@
             <div>
                 <ul>
                   <li><a class="active" href="#home">Materi</a></li>
-                  <li><a href="{{route('groups.members', $id)}}">Members</a></li>
+                  <li><a href="{{route('lecturer.classrooms.members', $id)}}">Members</a></li>
                 </ul>
             </div>
           </div>

@@ -57,8 +57,8 @@
           <div class="card-header">
             <div>
                 <ul>
-                  <li><a href="{{route('groups.materi', $id)}}">Materi</a></li>
-                  <li><a class="active" href="{{route('groups.members', $id)}}">Members</a></li>
+                  <li><a href="{{route('lecturer.classrooms.materi', $id)}}">Materi</a></li>
+                  <li><a class="active" href="{{route('lecturer.classrooms.members', $id)}}">Members</a></li>
                 </ul>
             </div>
           </div>

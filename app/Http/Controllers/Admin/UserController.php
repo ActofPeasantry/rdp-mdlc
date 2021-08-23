@@ -18,9 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        // dd('test controller');
         $users = User::all();
-        // dd($user);
         return view('backend.admin.manage_user.index', compact('users'));
     }
 

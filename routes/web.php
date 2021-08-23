@@ -39,8 +39,11 @@ Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->gr
     Route::resource('/admins', AdminController::class);
 });
 
-Route::get('/groups/join', [GroupController::class, 'join'])->name('groups.join');
-Route::resource('/groups', GroupController::class);
-Route::get('/groups/{id}/materi', [GroupController::class, 'materi'])->name('groups.materi');
-Route::get('/groups/{id}/members', [GroupController::class, 'members'])->name('groups.members');
-Route::post('/groups/storeJoin', [GroupController::class, 'storeJoin'])->name('groups.storeJoin');
+Route::prefix('lecturer')->middleware(['auth', 'auth.isLecturer'])->name('lecturer.')->group(function () {
+    Route::resource('/classrooms', GroupController::class);
+    Route::get('/classroom/join', [GroupController::class, 'join'])->name('classrooms.join');
+    Route::get('/classroom/{id}/materi', [GroupController::class, 'materi'])->name('classrooms.materi');
+    Route::get('/classroom/{id}/members', [GroupController::class, 'members'])->name('classrooms.members');
+    Route::post('/classroom/storeJoin', [GroupController::class, 'storeJoin'])->name('classrooms.storeJoin');
+});
+

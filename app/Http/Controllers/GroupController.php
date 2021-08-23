@@ -9,8 +9,8 @@ use App\Models\groupDetail;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
-use Auth;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
+// use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -22,7 +22,7 @@ class GroupController extends Controller
     public function index()
     {
         $groups = Group::all();
-        return view('backend.group.index', compact('groups'));
+        return view('backend.lecturer.classroom.index', compact('groups'));
     }
 
     /**
@@ -32,7 +32,7 @@ class GroupController extends Controller
      */
     public function create()
     {
-        return view('backend.group.create');
+        return view('backend.lecturer.classroom.create');
     }
 
     /**
@@ -54,7 +54,7 @@ class GroupController extends Controller
 
         //$flasher->addSuccess('Data berhasil ditambah');
 
-        return redirect(route('groups.index'));
+        return redirect(route('lecturer.classrooms.index'));
     }
     /**
      * Show the form for creating a new resource.
@@ -63,7 +63,7 @@ class GroupController extends Controller
      */
     public function join()
     {
-        return view('backend.group.join');
+        return view('backend.lecturer.classroom.join');
     }
 
     /**
@@ -86,7 +86,7 @@ class GroupController extends Controller
             //$flasher->addFailed('Kelas tidak tersedia');
         }
 
-        return redirect(route('groups.index'));
+        return redirect(route('lecturer.classrooms.index'));
     }
 
     /**
@@ -98,7 +98,7 @@ class GroupController extends Controller
     public function show($id)
     {
         $groups = Group::find($id);
-        return view('backend.group.materi', compact('groups','id'));
+        return view('backend.lecturer.classroom.materi', compact('groups','id'));
     }
 
     /**
@@ -110,7 +110,7 @@ class GroupController extends Controller
     public function materi($id)
     {
         $groups = Group::find($id);
-        return view('backend.group.materi', compact('groups','id'));
+        return view('backend.lecturer.classroom.materi', compact('groups','id'));
     }
 
     /**
@@ -122,7 +122,7 @@ class GroupController extends Controller
     public function members($id)
     {
         $groups = Group::find($id);
-        return view('backend.group.members', compact('groups','id'));
+        return view('backend.lecturer.classroom.members', compact('groups','id'));
     }
 
     /**

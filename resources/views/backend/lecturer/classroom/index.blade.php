@@ -33,13 +33,13 @@
             <div class="row">
                 <h3 class="card-title ml-auto col-lg-8">List User</h3>
                 <div class="ml-auto col-lg-2">
-                    <a href={{route("groups.create")}} class="btn btn-block btn-outline-success btn-sm">
+                    <a href={{route("lecturer.classrooms.create")}} class="btn btn-block btn-outline-success btn-sm">
                         <i class="far fa-plus-square"></i>
                         Tambah Kelas
                     </a>
                 </div>
                 <div class="ml-auto col-lg-2">
-                    <a href={{route("groups.join")}} class="btn btn-block btn-outline-info btn-sm">
+                    <a href={{route("lecturer.classrooms.join")}} class="btn btn-block btn-outline-info btn-sm">
                         <i class="far fa-plus-square"></i>
                         Masuk Kelas
                     </a>
@@ -50,7 +50,7 @@
             @foreach ($groups as $group)
             <div class="col-4">
               <!-- /.card-header -->
-              <a href="{{route('groups.materi', $group->id)}}">
+              <a href="{{route('lecturer.classrooms.materi', $group->id)}}">
               <div class="card-body">
                 <div class="card">
                   <img src="{{asset('image/group.JPG')}}" alt="Avatar">
