@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Lecturer;
-use App\Models\Group;
-use App\Models\groupDetail;
+use App\Models\Classroom;
+use App\Models\ClassroomDetail;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Auth;
 
-class GroupController extends Controller
+class ClassroomController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,8 +21,8 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::all();
-        return view('backend.lecturer.classroom.index', compact('groups'));
+        $classrooms = Classroom::all();
+        return view('backend.lecturer.classroom.index', compact('classrooms'));
     }
 
     /**
@@ -41,18 +41,18 @@ class GroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ToastrFactory  $flasher, Request $request)
     {
         // dd(Auth::user());
         $kode_unik = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890zyxwvutsrqponmlkjihgfedcba"), 14, 10);
 
-        $group = new Group;
-        $group->name = $request->name;
-        $group->lecturer_id = Auth::user()->lecturers->id;
-        $group->code = $kode_unik;
-        $group->save();
+        $classrooms = new Classroom;
+        $classrooms->name = $request->name;
+        $classrooms->lecturer_id = Auth::user()->lecturers->id;
+        $classrooms->code = $kode_unik;
+        $classrooms->save();
 
-        //$flasher->addSuccess('Data berhasil ditambah');
+        $flasher->addSuccess('Data berhasil ditambah');
 
         return redirect(route('lecturer.classrooms.index'));
     }
@@ -75,10 +75,10 @@ class GroupController extends Controller
     public function storeJoin(Request $request)
     {
         //dd($request);
-        $group = Group::where('code', $request->code)->first();
-        if($group){
-            $detail = new groupDetail;
-            $detail->group_id = $group->id;
+        $classrooms = Classroom::where('code', $request->code)->first();
+        if($classrooms){
+            $detail = new ClassroomDetail;
+            $detail->Classroom_id = $classrooms->id;
             $detail->student_id = Auth::user()->students->id;
             $detail->save();
             //$flasher->addSuccess('Berhasil masuk kelas');
@@ -97,8 +97,8 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        $groups = Group::find($id);
-        return view('backend.lecturer.classroom.materi', compact('groups','id'));
+        $classrooms = Classroom::find($id);
+        return view('backend.lecturer.classroom.materi', compact('classrooms','id'));
     }
 
     /**
@@ -109,8 +109,9 @@ class GroupController extends Controller
      */
     public function materi($id)
     {
-        $groups = Group::find($id);
-        return view('backend.lecturer.classroom.materi', compact('groups','id'));
+        $classrooms = Classroom::find($id);
+        $status = 'materi';
+        return view('backend.lecturer.classroom.detail', compact('classrooms','id','status'));
     }
 
     /**
@@ -121,8 +122,9 @@ class GroupController extends Controller
      */
     public function members($id)
     {
-        $groups = Group::find($id);
-        return view('backend.lecturer.classroom.members', compact('groups','id'));
+        $classrooms = Classroom::find($id);
+        $status = 'members';
+        return view('backend.lecturer.classroom.detail', compact('classrooms','id','status'));
     }
 
     /**
@@ -143,9 +145,15 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ToastrFactory  $flasher, Request $request, $id)
     {
-        //
+        $classrooms = Classroom::findOrFail($id);
+            $classrooms->name = $request->name;
+        $classrooms->save();
+
+        $flasher->addSuccess('Data berhasil diubah');
+
+        return redirect()->back();
     }
 
     /**
@@ -154,8 +162,13 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ToastrFactory  $flasher, $id)
     {
-        //
+        $classrooms= Classroom::findorFail($id);
+        // dd($classrooms);
+        $classrooms->delete();
+        $flasher->addWarning('Data dihapus');
+
+        return redirect()->action([ClassroomController::class, 'index']);
     }
 }

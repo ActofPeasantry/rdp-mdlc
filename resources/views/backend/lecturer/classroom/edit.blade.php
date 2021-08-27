@@ -1,15 +1,16 @@
-<div class="row" id="create" style="display:none">
+<div class="row" id="edit" style="display:none">
     <!-- Default box -->
     <div class="card col-md-12">
         <div class="card-header">
-          <h3 class="card-title">Menambahkan Kelas</h3>
+          <h3 class="card-title">Mengubah Kelas</h3>
         </div>
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('lecturer.classrooms.store') }}">
+                <form method="POST" id="form-update">
                     @csrf
-                    @include('backend.lecturer.classroom.group_form', ['create' => true])
+                    @method("PATCH")
+                    @include('backend.lecturer.classroom.group_form', ['create' => true])               
 
                 </form>
 

@@ -12,11 +12,9 @@
     @enderror
 </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <button type="submit" class="btn btn-primary">
-            {{ __('Submit') }}
-        </button>
-    </div>
-    <!-- /.col -->
+
+<div class="text-center">
+    <button onclick="$('#create').hide('500');" type="button" class="btn btn-default">Batalkan</button>
+    <button class="btn btn-success" type="submit">Simpan</button>
 </div>
+

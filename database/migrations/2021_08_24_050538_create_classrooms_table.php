@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGroupDetailsTable extends Migration
+class CreateClassroomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateGroupDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('group_details', function (Blueprint $table) {
+        Schema::create('classrooms', function (Blueprint $table) {
             $table->id();
-            $table->integer('grade')->nullable();
+            $table->string('name');
+            $table->string('code');
             $table->timestamps();
 
-            $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
-            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateGroupDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_details');
+        Schema::dropIfExists('classrooms');
     }
 }
