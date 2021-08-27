@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\LecturerController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\GroupController;
+use App\Http\Controllers\ClassroomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,18 +29,29 @@ Route::get('/', function () {
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('/classrooms', ClassroomController::class);
 
 //Admin Routes
 //Nama route : admin.user.{{nama_function_controller}} ex: admin.user.index
-Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->group(function () {
     Route::resource('/users', UserController::class);
     Route::resource('/lecturers', LecturerController::class);
     Route::resource('/students', StudentController::class);
     Route::resource('/admins', AdminController::class);
 });
 
-Route::get('/groups/join', [GroupController::class, 'join'])->name('groups.join');
-Route::resource('/groups', GroupController::class);
-Route::get('/groups/{id}/materi', [GroupController::class, 'materi'])->name('groups.materi');
-Route::get('/groups/{id}/members', [GroupController::class, 'members'])->name('groups.members');
-Route::post('/groups/storeJoin', [GroupController::class, 'storeJoin'])->name('groups.storeJoin');
+Route::prefix('lecturer')->middleware(['auth', 'auth.isLecturer'])->name('lecturer.')->group(function () {
+    Route::resource('/classrooms', ClassroomController::class);
+    Route::patch('/classrooms/update/{id}', [ClassroomController::class, 'update'])->name('classrooms.update');
+    Route::get('/classroom/join', [ClassroomController::class, 'join'])->name('classrooms.join');
+    Route::get('/classroom/{id}/materi', [ClassroomController::class, 'materi'])->name('classrooms.materi');
+    Route::get('/classroom/{id}/members', [ClassroomController::class, 'members'])->name('classrooms.members');
+    Route::post('/classroom/storeJoin', [ClassroomController::class, 'storeJoin'])->name('classrooms.storeJoin');
+});
+
+Route::prefix('student')->middleware(['auth', 'auth.isStudent'])->name('student.')->group(function () {
+    Route::get('/classroom/{id}/materi', [ClassroomController::class, 'materi'])->name('classrooms.materi');
+    Route::get('/classroom/{id}/members', [ClassroomController::class, 'members'])->name('classrooms.members');
+    Route::post('/classroom/storeJoin', [ClassroomController::class, 'storeJoin'])->name('classrooms.storeJoin');
+});
+

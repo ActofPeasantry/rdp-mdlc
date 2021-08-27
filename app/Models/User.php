@@ -70,4 +70,26 @@ class User extends Authenticatable
     public function hasAnyRole($role){
         return null !== $this->roles()->where('name', $role)->first();
     }
+
+    /**
+     *  Mencek apakah user yang login ada pada tabel admins
+     * @return bool
+     */
+    public function isAdmin(){
+        return null !== $this->admins()->first();
+    }
+    /**
+     *  Mencek apakah user yang login ada pada tabel lecturers
+     * @return bool
+     */
+    public function isLecturer(){
+        return null !== $this->lecturers()->first();
+    }
+    /**
+     *  Mencek apakah user yang login ada pada tabel students
+     * @return bool
+     */
+    public function isStudent(){
+        return null !== $this->students()->first();
+    }
 }

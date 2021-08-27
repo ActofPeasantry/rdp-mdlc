@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\User;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -17,8 +18,10 @@ class AdminController extends Controller
      */
     public function index()
     {
+        // $id = Auth::id();
+        // $user = User::find($id);;
+        // dd($user->isAdmin());
         $admins = Admin::all();
-        // dd($lecturers->find(2)->users);
         return view('backend.admin.manage_admin.index', compact('admins'));
     }
 

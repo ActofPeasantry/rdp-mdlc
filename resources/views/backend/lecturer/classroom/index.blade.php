@@ -27,36 +27,48 @@
 <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-
+        @can('isLecturer')
+          @include('backend.lecturer.classroom.create')
+        @endcan
         <div class="card">
           <div class="card-header">
             <div class="row">
                 <h3 class="card-title ml-auto col-lg-8">List User</h3>
+                @can('isLecturer')
                 <div class="ml-auto col-lg-2">
-                    <a href={{route("groups.create")}} class="btn btn-block btn-outline-success btn-sm">
+                    <a href="javascript:void(0)" onclick="$('#create').toggle(500);$('#edit').hide(500);" class="btn btn-block btn-outline-success btn-sm">
                         <i class="far fa-plus-square"></i>
                         Tambah Kelas
                     </a>
                 </div>
+                <!-- <div class="ml-auto col-lg-2">
+                    <a href={{route("lecturer.classrooms.create")}} class="btn btn-block btn-outline-success btn-sm">
+                        <i class="far fa-plus-square"></i>
+                        Tambah Kelas
+                    </a>
+                </div> -->
+                @endcan
+                @can('isStudent')
                 <div class="ml-auto col-lg-2">
-                    <a href={{route("groups.join")}} class="btn btn-block btn-outline-info btn-sm">
+                    <a href={{route("lecturer.classrooms.join")}} class="btn btn-block btn-outline-info btn-sm">
                         <i class="far fa-plus-square"></i>
                         Masuk Kelas
                     </a>
                 </div>
+                @endcan
             </div>
           </div>
           <div class="row">
-            @foreach ($groups as $group)
+            @foreach ($classrooms as $class)
             <div class="col-4">
               <!-- /.card-header -->
-              <a href="{{route('groups.materi', $group->id)}}">
+              <a href="{{route('lecturer.classrooms.materi', $class->id)}}">
               <div class="card-body">
                 <div class="card">
                   <img src="{{asset('image/group.JPG')}}" alt="Avatar">
                   <div class="container">
-                    <h4><b>{{$group->name}}</b></h4>
-                    <p>{{$group->lecturers->name}}</p>
+                    <h4><b>{{$class->name}}</b></h4>
+                    <p>{{$class->lecturers->name}}</p>
                   </div>
                 </div>
               </div>
@@ -80,7 +92,7 @@
         $(document).ready( function () {
             $('#table_id').DataTable();
         } );
-    </s>
+    </script>
 
     <script>
         function delete_lecturer($id) {
@@ -88,6 +100,19 @@
             if(confirm("Apakah anda ingin menghapus data ini?")){
                 $("#delete-user-form-" + $id).submit();
             }
+        }
+
+        function edit(id, name) {
+          if($('#edit').is(":visible") && id==id_awal){
+            $('#edit').hide('500');
+          }else{
+            $('#edit').show('500');
+            $('#e_name').val(name);
+            $('#form-update').attr('action', "{{route('lecturer.classrooms.index')}}/"+id);
+          }
+
+          $('#create').hide('500');
+          id_awal = id;
         }
     </script>
 @endsection

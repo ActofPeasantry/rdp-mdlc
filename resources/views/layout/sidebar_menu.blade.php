@@ -5,6 +5,7 @@
          with font-awesome or any other icon font library -->
 
 
+    @can('isAdmin')
     <li class="nav-item">
         <a href="#" class="nav-link">
             <i class="nav-icon fas fa-user-cog"></i>
@@ -58,9 +59,10 @@
             </li>
         </ul>
     </li>
+    @endcan
 
     <li class="nav-item">
-      <a href="{{route('groups.index')}}" class="nav-link">
+      <a href="{{route('classrooms.index')}}" class="nav-link">
         <i class="fas fa-chalkboard-teacher"></i>
         <p>
           Kelas
