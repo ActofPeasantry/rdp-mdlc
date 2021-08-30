@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Lecturer;
 use App\Models\Classroom;
+use App\Models\Task;
 use App\Models\ClassroomDetail;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Flasher\Prime\FlasherInterface;
@@ -128,6 +129,20 @@ class ClassroomController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function task($id)
+    {
+        $classrooms = Classroom::find($id);
+        $tasks = Task::where('classroom_id', $id)->get();
+        $status = 'kuis';
+        return view('backend.lecturer.classroom.detail', compact('classrooms','tasks','id','status'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -167,8 +182,8 @@ class ClassroomController extends Controller
         $classrooms= Classroom::findorFail($id);
         // dd($classrooms);
         $classrooms->delete();
-        $flasher->addWarning('Data dihapus');
+        $flasher->addError('Data dihapus');
 
-        return redirect()->action([ClassroomController::class, 'index']);
+        return redirect()->back();
     }
 }

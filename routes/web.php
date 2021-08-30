@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\LecturerController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,10 +44,13 @@ Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->gr
 
 Route::prefix('lecturer')->middleware(['auth', 'auth.isLecturer'])->name('lecturer.')->group(function () {
     Route::resource('/classrooms', ClassroomController::class);
+    Route::resource('/tasks', TaskController::class);
+    Route::resource('/questions', QuestionController::class);
     Route::patch('/classrooms/update/{id}', [ClassroomController::class, 'update'])->name('classrooms.update');
     Route::get('/classroom/join', [ClassroomController::class, 'join'])->name('classrooms.join');
     Route::get('/classroom/{id}/materi', [ClassroomController::class, 'materi'])->name('classrooms.materi');
     Route::get('/classroom/{id}/members', [ClassroomController::class, 'members'])->name('classrooms.members');
+    Route::get('/classroom/{id}/task', [ClassroomController::class, 'task'])->name('classrooms.task');
     Route::post('/classroom/storeJoin', [ClassroomController::class, 'storeJoin'])->name('classrooms.storeJoin');
 });
 
