@@ -65,7 +65,7 @@
                           <img src="{{asset('image/task.JPG')}}" alt="Avatar" width="50dp">
                         </div>
                         <div class="col-4">
-                          <a href="{{route('lecturer.tasks.show', $task->id)}}">
+                          <a href="{{route('lecturer.tasks.show', $tasks->id)}}">
                             <h4>{{$question->name}}</h4>
                           </a>
                         </div>
