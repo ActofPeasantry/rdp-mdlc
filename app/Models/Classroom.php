@@ -19,6 +19,11 @@ class Classroom extends Model
         return $this->belongsTo('App\Models\Lecturer', 'lecturer_id');
     }
 
+    public function studyMaterials()
+    {
+        return $this->hasMany('App\Models\Lecturer', 'classroom_id', 'id');
+    }
+
     public function details()
     {
         return $this->hasMany('App\Models\groupDetail', 'group_id', 'id');
