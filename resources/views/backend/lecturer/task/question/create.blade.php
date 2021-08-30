@@ -2,21 +2,20 @@
     <!-- Default box -->
     <div class="card col-md-12">
         <div class="card-header">
-          <h3 class="card-title">Menambahkan Kelas</h3>
+          <h3 class="card-title">Menambahkan Pertanyaan</h3>
         </div>
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('lecturer.classrooms.store') }}">
+                <form method="POST" action="{{ route('lecturer.questions.store') }}">
                     @csrf
-                    {{-- Name --}}
+                    {{-- Text --}}
                     <div class="form-group mb-3">
-                        <label class="form-label" for="name">Nama Kelas</label>
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                        value="{{ old('name') }} @isset($user) {{$lecturer->name}}  @endisset"
-                        required autocomplete="name">
+                        <label class="form-label">Pertanyaan</label>
+                        <textarea name="text" id="text" cols="30" rows="10"></textarea>
+                        <input type="hidden" name="task_id" value="{{$id}}">
 
-                        @error('name')
+                        @error('text')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

@@ -53,6 +53,69 @@
   @can('isLecturer')
           @include('backend.lecturer.classroom.edit')
         @endcan
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form method="POST" action="{{ route('lecturer.tasks.store') }}">
+                <div class="modal-body">              
+                      @csrf
+                      <input type="hidden" value="{{$classrooms->id}}" name="classroom_id">
+                      <div class="form-group row">
+                          <label class="col-xl-2 col-lg-2 col-form-label">Judul</label>
+                          <label class="col-xl-1 col-lg-1 col-form-label">:</label>
+                          <div class="col-lg-9 col-xl-9">
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                            value="{{ old('name') }} @isset($user) {{$lecturer->name}}  @endisset"
+                            required autocomplete="name">
+
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label class="col-xl-2 col-lg-2 col-form-label">Due Date</label>
+                          <label class="col-xl-1 col-lg-1 col-form-label">:</label>
+                          <div class="col-lg-5 col-xl-5">
+                            <input id="date" type="date" class="form-control @error('date') is-invalid @enderror" name="date"
+                            required autocomplete="date">
+
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                          </div>
+                          <div class="col-lg-4 col-xl-4">
+                            <input id="time" type="time" class="form-control @error('time') is-invalid @enderror" name="time"
+                            required autocomplete="time">
+
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                          </div>
+                      </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
     <div class="row">
       <div class="col-12">
 
@@ -64,24 +127,18 @@
                 </div>
                 @can('isLecturer')
                 <div class="ml-auto col-lg-2">
-                    <a href="javascript:void(0)" onclick="edit({{$id}},'{{$classrooms->name}}')" class="btn btn-block btn-outline-success btn-sm">
+                    <!-- <a href="javascript:void(0)" onclick="edit({{$id}},'{{$classrooms->name}}')" class="btn btn-block btn-outline-success btn-sm">
                         <i class="far fa-plus-square"></i>
                         Tambah Kelas
-                    </a>
+                    </a> -->
+                    <div class="dropdown">
+                      <button class="btn btn-block btn-outline-info btn-sm"><i class="far fa-plus-square"></i>&nbsp;&nbsp;Add Materials</button>
+                      <div class="dropdown-content">
+                        <a class="dropdown-item" href="#" >&nbsp;&nbsp;Materi</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalLong">&nbsp;&nbsp;Kuis</a>
+                      </div>
+                    </div>
                 </div>
-                <div class="ml-right col-lg-2">
-                    <a href="javascript:void(0)" onclick="delete_class({{$id}})" class="btn btn-block btn-outline-danger btn-sm">
-                        <i class="far fa-minus-square"></i>
-                        Hapus Kelas
-                    </a>
-                </div>
-                <!-- <div class="ml-auto col-lg-2">
-                    <a href={{route("lecturer.classrooms.create")}} class="btn btn-block btn-outline-success btn-sm">
-                        <i class="far fa-plus-square"></i>
-                        Tambah Kelas
-                    </a>
-                </div>
-              <br> -->
                 @endcan
                 @can('isStudent')
                 <div class="ml-auto col-lg-2">
@@ -98,11 +155,19 @@
                 <ul>
                   <li><a href="{{route('lecturer.classrooms.materi', $id)}}">Materi</a></li>
                   <li><a class="active" href="{{route('lecturer.classrooms.members', $id)}}">Members</a></li>
+                  <li><a href="{{route('lecturer.classrooms.task', $id)}}">Kuis</a></li>
                 </ul>
               @elseif($status=='materi')
                 <ul>
                   <li><a class="active" href="{{route('lecturer.classrooms.materi', $id)}}">Materi</a></li>
                   <li><a href="{{route('lecturer.classrooms.members', $id)}}">Members</a></li>
+                  <li><a href="{{route('lecturer.classrooms.task', $id)}}">Kuis</a></li>
+                </ul>
+              @elseif($status=='kuis')
+                <ul>
+                  <li><a href="{{route('lecturer.classrooms.materi', $id)}}">Materi</a></li>
+                  <li><a href="{{route('lecturer.classrooms.members', $id)}}">Members</a></li>
+                  <li><a class="active" href="{{route('lecturer.classrooms.task', $id)}}">Kuis</a></li>
                 </ul>
               @endif
             </div>
@@ -111,11 +176,9 @@
             @include('backend.lecturer.classroom.members')
           @elseif($status=='materi')
             @include('backend.lecturer.classroom.materi')
+          @elseif($status=='kuis')
+            @include('backend.lecturer.classroom.kuis')
           @endif
-          <form id="delete-class-form-{{$id}}" action="{{route('lecturer.classrooms.destroy', $id)}}" method="POST">
-            @csrf
-            @method("DELETE")
-          </form>
         </div>
         <!-- /.card -->
       </div>
