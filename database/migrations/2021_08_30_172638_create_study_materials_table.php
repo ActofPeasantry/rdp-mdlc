@@ -16,7 +16,7 @@ class CreateStudyMaterialsTable extends Migration
         Schema::create('study_materials', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('abstract');
+            $table->mediumText('abstract');
             $table->longText('description');
 
             $table->foreignId('classroom_id')->constrained('classrooms')->onDelete('cascade');

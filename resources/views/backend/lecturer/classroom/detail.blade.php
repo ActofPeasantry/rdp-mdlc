@@ -12,7 +12,8 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'Kelola Kelas' => '#'
+            'Kelola Kelas' => route('lecturer.classrooms.index'),
+            'Detail Kelas' => '#',
         )
     )
   !!}
@@ -65,7 +66,7 @@
                 </button>
               </div>
               <form method="POST" action="{{ route('lecturer.tasks.store') }}">
-                <div class="modal-body">              
+                <div class="modal-body">
                       @csrf
                       <input type="hidden" value="{{$classrooms->id}}" name="classroom_id">
                       <div class="form-group row">
@@ -134,7 +135,7 @@
                     <div class="dropdown">
                       <button class="btn btn-block btn-outline-info btn-sm"><i class="far fa-plus-square"></i>&nbsp;&nbsp;Add Materials</button>
                       <div class="dropdown-content">
-                        <a class="dropdown-item" href="#" >&nbsp;&nbsp;Materi</a>
+                        <a class="dropdown-item" href="{{ route('lecturer.materials.create', $classrooms->id) }}" >&nbsp;&nbsp;Materi</a>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalLong">&nbsp;&nbsp;Kuis</a>
                       </div>
                     </div>
@@ -194,7 +195,7 @@
         $(document).ready( function () {
             $('#table_id').DataTable();
         } );
-        
+
     </script>
 
     <script>
@@ -203,10 +204,10 @@
             if(confirm("Apakah anda ingin menghapus data ini?")){
                 $("#delete-class-form-" + $id).submit();
             }
-        }    
+        }
 
         function edit(id, name) {
-          
+
           if($('#edit').is(":visible") && id==id_awal){
             $('#edit').hide('500');
           }else{
@@ -217,6 +218,6 @@
 
           $('#create').hide('500');
           id_awal = id;
-        }   
+        }
     </script>
 @endsection

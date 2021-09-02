@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Lecturer;
 
 use App\Http\Controllers\Controller;
 use App\Models\StudyMaterial;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
+use Flasher\Toastr\Prime\ToastrFactory;
+
 
 class StudyMaterialController extends Controller
 {
@@ -23,9 +26,11 @@ class StudyMaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $classroom = Classroom::find($id);
+        // dd($classroom );
+        return view('backend.lecturer.study_material.create', compact('classroom'));
     }
 
     /**
@@ -34,9 +39,12 @@ class StudyMaterialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ToastrFactory  $flasher)
     {
-        //
+        // dd($request->all());
+        $study = StudyMaterial::create($request->all());
+        $flasher->addSuccess('Data berhasil ditambah');
+        return redirect()->route('lecturer.classrooms.materi', $study->classroom_id);
     }
 
     /**

@@ -3,7 +3,7 @@
 
 
 @section('page_name')
-    <h1>Kelola Dosen</h1>
+    <h1>Kelola Kelas</h1>
 @endsection
 
 @section('breadcrumb')
@@ -12,7 +12,7 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'Kelola Dosen' => '#'
+            'Kelola Kelas' => '#'
         )
     )
   !!}
@@ -82,9 +82,9 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     <p>{{$class->lecturers->name}}</p>
-                    
+
                   </div>
                 </div>
               </div>
@@ -120,10 +120,10 @@
             if(confirm("Apakah anda ingin menghapus data ini?")){
                 $("#delete-class-form-" + $id).submit();
             }
-        } 
+        }
 
         function edit(id, name) {
-          
+
           if($('#edit').is(":visible") && id==id_awal){
             $('#edit').hide('500');
           }else{
@@ -135,6 +135,6 @@
 
           $('#create').hide('500');
           id_awal = id;
-        }   
+        }
     </script>
 @endsection

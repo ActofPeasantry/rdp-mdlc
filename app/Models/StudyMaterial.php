@@ -12,7 +12,8 @@ class StudyMaterial extends Model
     public $fillable = [
         'title',
         'abstract',
-        'description'
+        'description',
+        'classroom_id'
     ];
 
     public function classroom()
