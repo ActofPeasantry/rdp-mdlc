@@ -53,9 +53,12 @@ class StudyMaterialController extends Controller
      * @param  \App\Models\StudyMaterial  $studyMaterial
      * @return \Illuminate\Http\Response
      */
-    public function show(StudyMaterial $studyMaterial)
+    public function show(StudyMaterial $studyMaterial, $id)
     {
-        //
+        $study = StudyMaterial::find($id);
+        // dd($study);
+        return view('backend.lecturer.study_material.show', compact('study'));
+
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Models\Lecturer;
 use App\Models\Classroom;
 use App\Models\Task;
 use App\Models\ClassroomDetail;
+use App\Models\StudyMaterial;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
@@ -111,8 +112,10 @@ class ClassroomController extends Controller
     public function materi($id)
     {
         $classrooms = Classroom::find($id);
+        $materials =  StudyMaterial::where('classroom_id', $id)->get();
+        // dd($materials[0]->abstract);
         $status = 'materi';
-        return view('backend.lecturer.classroom.detail', compact('classrooms','id','status'));
+        return view('backend.lecturer.classroom.detail', compact('classrooms','id','status', 'materials'));
     }
 
     /**

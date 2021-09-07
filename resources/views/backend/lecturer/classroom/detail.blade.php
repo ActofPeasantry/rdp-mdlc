@@ -220,4 +220,18 @@
           id_awal = id;
         }
     </script>
+
+    <script>
+        var $n = 0;
+        $('#table_id > tbody  > tr').each(function(){
+            var $log = $( "#abstract-" + $n ),
+            str = $( "#material-abstract" ).val(),
+            html = $.parseHTML( str ),
+            nodeNames = [];
+
+            // Append the parsed HTML
+            $log.append( html );
+            $n++;
+        });
+    </script>
 @endsection
