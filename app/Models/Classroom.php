@@ -26,6 +26,6 @@ class Classroom extends Model
 
     public function details()
     {
-        return $this->hasMany('App\Models\groupDetail', 'group_id', 'id');
+        return $this->hasMany('App\Models\classroomDetail', 'classroom_id', 'id');
     }
 }

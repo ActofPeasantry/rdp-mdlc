@@ -5,22 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class groupDetail extends Model
+class Score extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'group_id',
-        'student_id',
-        'grade',
+        'start_at',
     ];
 
-    public function groups()
+    public function task()
     {
-        return $this->belongsTo('App\Models\Group', 'group_id');
+        return $this->belongsTo('App\Models\Task', 'task_id');
     }
 
-    public function students()
+    public function student()
     {
         return $this->belongsTo('App\Models\Student', 'student_id');
     }

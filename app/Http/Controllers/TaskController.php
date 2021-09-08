@@ -48,7 +48,6 @@ class TaskController extends Controller
         $task->due_date = $request->date;
         $task->time = $request->time;
         $task->classroom_id = $request->classroom_id;
-        $task->student_id = 1;
         $task->save();
 
         $flasher->addSuccess('Data berhasil ditambah');

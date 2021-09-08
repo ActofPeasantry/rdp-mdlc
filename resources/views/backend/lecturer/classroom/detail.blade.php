@@ -13,7 +13,7 @@
         array(
             'Dashboard' => route('home'),
             'Kelola Kelas' => route('lecturer.classrooms.index'),
-            'Detail Kelas' => '#',
+            'Kelola Detail Kelas' => '#'
         )
     )
   !!}
@@ -60,13 +60,13 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Menambahkan Kuis</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form method="POST" action="{{ route('lecturer.tasks.store') }}">
-                <div class="modal-body">
+              <form method="POST" action="{{ route('tasks.store') }}">
+                <div class="modal-body">              
                       @csrf
                       <input type="hidden" value="{{$classrooms->id}}" name="classroom_id">
                       <div class="form-group row">
@@ -117,6 +117,27 @@
             </div>
           </div>
         </div>
+
+        <div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="scoreModalTitle">Memulai Kuis</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body">              
+                      <p>Apakah inda ingin memulai kuis?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                  <a href="{{route('student.scores.index')}}" type="submit" class="btn btn-primary">Ya</a>
+                </div>
+            </div>
+          </div>
+        </div>
+
     <div class="row">
       <div class="col-12">
 
@@ -141,34 +162,34 @@
                     </div>
                 </div>
                 @endcan
-                @can('isStudent')
+                <!-- @can('isStudent')
                 <div class="ml-auto col-lg-2">
-                    <a href={{route("lecturer.classrooms.join")}} class="btn btn-block btn-outline-info btn-sm">
+                    <a href={{route("student.classrooms.join")}} class="btn btn-block btn-outline-info btn-sm">
                         <i class="far fa-plus-square"></i>
                         Masuk Kelas
                     </a>
                 </div>
-                @endcan
+                @endcan -->
             </div>
             <br>
             <div>
               @if($status=='members')
                 <ul>
-                  <li><a href="{{route('lecturer.classrooms.materi', $id)}}">Materi</a></li>
-                  <li><a class="active" href="{{route('lecturer.classrooms.members', $id)}}">Members</a></li>
-                  <li><a href="{{route('lecturer.classrooms.task', $id)}}">Kuis</a></li>
+                  <li><a href="{{route('classrooms.materi', $id)}}">Materi</a></li>
+                  <li><a class="active" href="{{route('classrooms.members', $id)}}">Members</a></li>
+                  <li><a href="{{route('classrooms.task', $id)}}">Kuis</a></li>
                 </ul>
               @elseif($status=='materi')
                 <ul>
-                  <li><a class="active" href="{{route('lecturer.classrooms.materi', $id)}}">Materi</a></li>
-                  <li><a href="{{route('lecturer.classrooms.members', $id)}}">Members</a></li>
-                  <li><a href="{{route('lecturer.classrooms.task', $id)}}">Kuis</a></li>
+                  <li><a class="active" href="{{route('classrooms.materi', $id)}}">Materi</a></li>
+                  <li><a href="{{route('classrooms.members', $id)}}">Members</a></li>
+                  <li><a href="{{route('classrooms.task', $id)}}">Kuis</a></li>
                 </ul>
               @elseif($status=='kuis')
                 <ul>
-                  <li><a href="{{route('lecturer.classrooms.materi', $id)}}">Materi</a></li>
-                  <li><a href="{{route('lecturer.classrooms.members', $id)}}">Members</a></li>
-                  <li><a class="active" href="{{route('lecturer.classrooms.task', $id)}}">Kuis</a></li>
+                  <li><a href="{{route('classrooms.materi', $id)}}">Materi</a></li>
+                  <li><a href="{{route('classrooms.members', $id)}}">Members</a></li>
+                  <li><a class="active" href="{{route('classrooms.task', $id)}}">Kuis</a></li>
                 </ul>
               @endif
             </div>
