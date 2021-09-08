@@ -28,9 +28,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $tasks = Task::find($id);
+        return view('backend.lecturer.task.question.create', compact('id','tasks'));
     }
 
     /**
@@ -50,7 +51,7 @@ class QuestionController extends Controller
 
         $flasher->addSuccess('Data berhasil ditambah');
 
-        return redirect()->back();
+        return redirect(route('lecturer.tasks.show', $request->task_id));
     }
 
     /**
@@ -61,7 +62,9 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        //
+        //dd($id);
+        $question = Question::find($id);
+        return view('backend.lecturer.task.question.detail', compact('question'));
     }
 
     /**
@@ -72,7 +75,9 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $question = Question::find($id);
+        $tasks = Task::find($question->task_id);
+        return view('backend.lecturer.task.question.edit', compact('question','tasks'));
     }
 
     /**
@@ -82,9 +87,15 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ToastrFactory  $flasher, Request $request, $id)
     {
-        //
+        $questions = Question::findOrFail($id);
+            $questions->text = $request->text;
+        $questions->save();
+
+        $flasher->addSuccess('Data berhasil diubah');
+
+        return redirect(route('lecturer.tasks.show', $questions->task_id));
     }
 
     /**
@@ -93,8 +104,13 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ToastrFactory  $flasher, $id)
     {
-        //
+        //dd($id);
+        $question= Question::findorFail($id);
+        // dd($question);
+        $question->delete();
+        $flasher->addError('Data dihapus');
+        return redirect()->back();
     }
 }

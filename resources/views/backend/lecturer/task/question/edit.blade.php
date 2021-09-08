@@ -23,18 +23,20 @@
     <!-- Default box -->
     <div class="card col-md-12">
         <div class="card-header">
-          <h3 class="card-title">Menambahkan Pertanyaan</h3>
+          <h3 class="card-title">Mengubah Pertanyaan</h3>
         </div>
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('lecturer.questions.store') }}">
+                <form method="POST" action="{{route('lecturer.questions.update', $question->id)}}">
                     @csrf
+                    @method("PATCH")
                     {{-- Text --}}
-                    <div class="form-group mb-12">
+                    <div class="form-group mb-3">
                         <label class="form-label">Pertanyaan</label>
-                        <textarea name="text" id="text"></textarea>
-                        <input type="hidden" name="task_id" value="{{$id}}">
+                        <textarea name="text" id="text" cols="30" rows="10">{{$question->text}}</textarea>
+                        
+                        <p></p>
 
                         @error('text')
                         <span class="invalid-feedback" role="alert">
@@ -45,7 +47,7 @@
 
 
                     <div class="text-center">
-                        <a href="{{route('lecturer.tasks.show', $id)}}" class="btn btn-default">Batalkan</a>
+                        <a href="{{route('lecturer.tasks.show', $tasks->id)}}" class="btn btn-default">Batalkan</a>
                         <button class="btn btn-success" type="submit">Simpan</button>
                     </div>
 
@@ -63,6 +65,7 @@
 @section('javascripts')
 
 @endsection
+
 
 
 

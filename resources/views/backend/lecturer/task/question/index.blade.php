@@ -12,7 +12,9 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'Kelola Dosen' => '#'
+            'Kelola Kelas' => route('classrooms.index'),
+            'Kelola Detail Kelas' => route('classrooms.task', $tasks->classroom_id),
+            'Kelola Pertanyaan' => '#'
         )
     )
   !!}
@@ -27,17 +29,14 @@
 <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        @can('isLecturer')
-          @include('backend.lecturer.task.question.create')
-          @include('backend.lecturer.classroom.edit')
-        @endcan
+
         <div class="card">
           <div class="card-header">
             <div class="row">
                 <h3 class="card-title ml-left col-lg-8">List Pertanyaan</h3>
                 @can('isLecturer')
                 <div class="ml-auto col-lg-2">
-                    <a href="javascript:void(0)" onclick="$('#create').toggle(500);$('#edit').hide(500);" class="btn btn-block btn-outline-success btn-sm">
+                    <a href="{{route('lecturer.questions.create', $id)}}" class="btn btn-block btn-outline-success btn-sm">
                         <i class="far fa-plus-square"></i>
                         Tambah Pertanyaan
                     </a>
@@ -62,16 +61,37 @@
                     <td>
                       <div class="row">
                         <div class="ml-right col-1">
-                          <img src="{{asset('image/task.JPG')}}" alt="Avatar" width="50dp">
+                          <img src="{{asset('image/task.PNG')}}" alt="Avatar" width="50dp" height="40dp">
                         </div>
                         <div class="col-4">
-                          <a href="{{route('lecturer.tasks.show', $tasks->id)}}">
-                            <h4>{{$question->name}}</h4>
-                          </a>
+              
+                            <p><?php 
+                              $karakter = strlen($question->text);
+                              if($karakter<20){
+                                echo substr(nl2br($question->text), 0, 20) ; 
+                              }else{
+                                echo substr(nl2br($question->text), 0, 20).' ...';
+                              }
+                            ?></p>
+
+                        </div>
+                        <div class="ml-right col-lg-2">
+                          <div class="dropdown">
+                            <button class="dropbtn btn btn-icon btn-circle btn-label-facebook"><i class="fas fa-cogs"></i></button>
+                            <div class="dropdown-content">
+                              <a class="dropdown-item" href="{{route('lecturer.questions.show', $question->id)}}""><i class="fas fa-eye"></i>&nbsp;&nbsp;Lihat</a>
+                              <a class="dropdown-item" href="javascript:void(0)" onclick="delete_question({{$question->id}})"><i class="fas fa-trash"></i>&nbsp;&nbsp;Hapus</a>
+                              <a class="dropdown-item" href="{{route('lecturer.questions.edit', $question->id)}}"><i class="fas fa-pen"></i>&nbsp;&nbsp;Edit</a>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </td>
                   </tr>
+                  <form id="delete-question-form-{{$question->id}}" action="{{route('lecturer.questions.destroy', $question->id)}}" method="POST">
+                    @csrf
+                    @method("DELETE")
+                  </form>
                 @endforeach
               </tbody>
             </table>
@@ -94,38 +114,32 @@
     </script>
 
     <script>
-        function delete_class($id) {
+
+        
+
+        function delete_question($id) {
             event.preventDefault();
             if(confirm("Apakah anda ingin menghapus data ini?")){
-                $("#delete-class-form-" + $id).submit();
+                $("#delete-question-form-" + $id).submit();
             }
         } 
 
-        function edit(id, name) {
+        function edit(id, text) {
           
           if($('#edit').is(":visible") && id==id_awal){
             $('#edit').hide('500');
           }else{
             $('#edit').show('500');
-            console.log(name);
-            $('#e_name').val(name);
+            console.log(text);
+            document.getElementById("e_text").innerHTML="<b>" + text +"</b>";
             $('#form-update').attr('action', "{{route('lecturer.classrooms.index')}}/update/"+id);
           }
 
           $('#create').hide('500');
           id_awal = id;
+          return text;
         }   
 
-        tinymce.init({
-          selector: "textarea",
-          plugins: [
-              "advlist autolink lists link image charmap print preview anchor",
-              "searchreplace visualblocks code fullscreen",
-              "insertdatetime media table contextmenu paste"
-          ],
-
-      toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-
-      });
+        
     </script>
 @endsection

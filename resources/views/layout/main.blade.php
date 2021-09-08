@@ -15,6 +15,8 @@
   <link rel="stylesheet" type="text/css" href="{{asset('css/my.css')}}">
   {{-- Datatables --}}
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css"/>
+  {{-- TinyMCE --}}
+  <script src="https://cdn.tiny.cloud/1/osyucyeiesp79wio1lthlgscw6mk6vmtpa87nox3puxtfodb/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -118,6 +120,19 @@
         event.preventDefault();
         $("#logout-form").submit();
     }
+
+    tinymce.init({
+          selector: "textarea",
+          attribute: "width:1000",
+          plugins: [
+              "advlist autolink lists link image charmap print preview anchor",
+              "searchreplace visualblocks code fullscreen",
+              "insertdatetime media table contextmenu paste"
+          ],
+
+      toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+
+      });
 </script>
 
  @stack('child-scripts')

@@ -7,6 +7,7 @@ use App\Models\Lecturer;
 use App\Models\Classroom;
 use App\Models\Task;
 use App\Models\ClassroomDetail;
+use App\Models\StudyMaterial;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
@@ -20,9 +21,17 @@ class ClassroomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $classrooms = Classroom::all();
+        //dd(Auth::user()->lecturers->id);
+        if($request->data == 'lecturer-data'){
+            $classrooms = Classroom::where('lecturer_id', Auth::user()->lecturers->id)->get();
+        }else{
+            $classrooms = Classroom::select('classrooms.*')
+            ->join('classroom_details', 'classrooms.id', '=', 'classroom_details.classroom_id')
+            ->where('student_id', Auth::user()->students->id)->get();
+        }
+        
         return view('backend.lecturer.classroom.index', compact('classrooms'));
     }
 
@@ -55,7 +64,7 @@ class ClassroomController extends Controller
 
         $flasher->addSuccess('Data berhasil ditambah');
 
-        return redirect(route('lecturer.classrooms.index'));
+    return redirect(route('lecturer.classrooms.index','data=lecturer-data'));
     }
     /**
      * Show the form for creating a new resource.
@@ -86,8 +95,8 @@ class ClassroomController extends Controller
         }else{
             //$flasher->addFailed('Kelas tidak tersedia');
         }
-
-        return redirect(route('lecturer.classrooms.index'));
+        $flasher->addSuccess('Berhasil masuk kelas');
+        return redirect(route('lecturer.classrooms.index', 'data=data-student'));
     }
 
     /**
@@ -111,8 +120,10 @@ class ClassroomController extends Controller
     public function materi($id)
     {
         $classrooms = Classroom::find($id);
+        $materials =  StudyMaterial::where('classroom_id', $id)->get();
+        // dd($materials[0]->abstract);
         $status = 'materi';
-        return view('backend.lecturer.classroom.detail', compact('classrooms','id','status'));
+        return view('backend.lecturer.classroom.detail', compact('classrooms','id','status', 'materials'));
     }
 
     /**

@@ -19,4 +19,12 @@ class Question extends Model
     {
         return $this->belongsTo('App\Models\Task', 'task_id');
     }
+
+    function textEditor() {
+        // $data = trim($this->text);
+        // $data = stripslashes($this->text);
+        // $data = htmlspecialchars($this->text);
+        return htmlspecialchars_decode(htmlspecialchars_decode($this->text));
+
+    }
 }

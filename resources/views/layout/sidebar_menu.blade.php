@@ -61,14 +61,27 @@
     </li>
     @endcan
 
+    @can('isLecturer')
     <li class="nav-item">
-      <a href="{{route('classrooms.index')}}" class="nav-link">
+      <a href="{{route('classrooms.index')}}?data=lecturer-data" class="nav-link">
         <i class="fas fa-chalkboard-teacher"></i>
         <p>
           Kelas
         </p>
       </a>
     </li>
+    @endcan
+
+  @can('isStudent')
+    <li class="nav-item">
+      <a href="{{route('classrooms.index')}}?data=student-data" class="nav-link">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <p>
+          Kelas
+        </p>
+      </a>
+    </li>
+    @endcan
 
     <li class="nav-item">
       <a href="#" class="nav-link">
