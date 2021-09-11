@@ -8,9 +8,10 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\Lecturer\StudyMaterialController;
+use App\Http\Controllers\Lecturer\ScoreDetailController;
 use App\Http\Controllers\TaskController;
-use App\Models\StudyMaterial;
 use App\Http\Controllers\ScoreController;
+use App\Models\StudyMaterial;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,11 @@ Route::prefix('lecturer')->middleware(['auth', 'auth.isLecturer'])->name('lectur
     Route::post('/classroom/storeJoin', [ClassroomController::class, 'storeJoin'])->name('classrooms.storeJoin');
     // Task lecturer.tasks.index
     Route::resource('/tasks', TaskController::class);
+    Route::get('/tasks/{id}/list', [TaskController::class, 'list'])->name('tasks.list');
+    // Question lecturer.questions.index
+    Route::resource('/questions', QuestionController::class);
+    // ScoreDetail lecturer.ScoreDetail.index
+    Route::resource('/ScoreDetail', ScoreDetailController::class);
     // Question lecturer.questions.index
     Route::resource('/questions', QuestionController::class);
     // Study Material => lecturer.materials.index

@@ -36,6 +36,12 @@
                 <h3 class="card-title ml-left col-lg-8">List Pertanyaan</h3>
                 @can('isLecturer')
                 <div class="ml-auto col-lg-2">
+                    <a href="{{route('lecturer.tasks.list', $id)}}" class="btn btn-block btn-outline-info btn-sm">
+                        <i class="far fa-eye-square"></i>
+                        List Pengumpulan
+                    </a>
+                </div>
+                <div class="ml-auto col-lg-2">
                     <a href="{{route('lecturer.questions.create', $id)}}" class="btn btn-block btn-outline-success btn-sm">
                         <i class="far fa-plus-square"></i>
                         Tambah Pertanyaan

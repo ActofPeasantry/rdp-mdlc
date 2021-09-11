@@ -9,8 +9,11 @@ class Score extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'start_at',
+        'student_id',
+        'task_id',
     ];
 
     public function task()
@@ -20,6 +23,6 @@ class Score extends Model
 
     public function student()
     {
-        return $this->belongsTo('App\Models\Student', 'student_id');
+        return $this->hasOne(Student::class, 'id', 'student_id');
     }
 }

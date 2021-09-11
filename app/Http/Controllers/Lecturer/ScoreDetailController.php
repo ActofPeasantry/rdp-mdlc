@@ -1,27 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Lecturer;
 
 use App\Http\Controllers\Controller;
-use App\Models\Task;
+use App\Models\scoreDetail;
 use App\Models\Score;
+use Illuminate\Http\Request;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Flasher\Prime\FlasherInterface;
-use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Auth as FacadesAuth;
-use Illuminate\Support\Facades\Auth;
 
-class TaskController extends Controller
+class ScoreDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        
-
+        //
     }
 
     /**
@@ -40,20 +37,9 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ToastrFactory  $flasher, Request $request)
+    public function store(Request $request)
     {
-        //dd($request);
-        // dd(Auth::user());
-        $task = new Task;
-        $task->name = $request->name;
-        $task->due_date = $request->date;
-        $task->time = $request->time;
-        $task->classroom_id = $request->classroom_id;
-        $task->save();
-
-        $flasher->addSuccess('Data berhasil ditambah');
-
-        return redirect()->back();
+        //
     }
 
     /**
@@ -64,8 +50,9 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $tasks = Task::find($id);
-        return view('backend.lecturer.task.question.index', compact('tasks','id'));
+        $details = ScoreDetail::where('score_id', $id)->get();
+        //dd($details);
+        return view('backend.lecturer.assessment.show', compact('details'));
     }
 
     /**
@@ -86,9 +73,21 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ToastrFactory  $flasher, Request $request, $id)
     {
-        //
+        
+        $detail = ScoreDetail::find($request->id);
+        $detail->score = $request->score;
+        $detail->save();
+        // $new = new \DateTime();
+        // $score = Score::find($detail->score_id);
+        // $new2 = new \DateTime($score->start_at);
+        
+        // $bool = $new < $new2 ;
+        // dd($bool);
+
+
+        return redirect(route('lecturer.ScoreDetail.show', $detail->score_id));
     }
 
     /**
@@ -101,20 +100,4 @@ class TaskController extends Controller
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function list($id)
-    {
-        $lists = Score::all();
-        $tasks = Task::find($id);
-
-        return view('backend.lecturer.task.list.index', compact('lists','id'));
-    }
-
-
 }
