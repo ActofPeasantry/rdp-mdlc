@@ -136,7 +136,12 @@
 
     {{-- Confirmation Password --}}
     <div class="input-group mb-3">
-        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
+        <input id="password-confirm" type="password" class="form-control @error('password-confirm') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
+        @error('password-confirm')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
 
         <div class="input-group-append">
             <div class="input-group-text">
