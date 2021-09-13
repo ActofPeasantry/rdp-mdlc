@@ -25,7 +25,6 @@
   }
 </style>
 
-@section('content')
 <style>
   .card img{
     width:50%;
@@ -50,7 +49,7 @@
                 <label class="kt-label m-label--single">Nilai:</label>
               </div>
               <div class="kt-form__control">
-                <input id="score_update" type="number" class="form-control @error('score') is-invalid @enderror" name="score">
+                <input id="score_update" type="number" max="100" class="form-control @error('score') is-invalid @enderror" name="score">
                 <input id="id_update" type="hidden" class="form-control @error('score') is-invalid @enderror" name="id">
               </div>
             </div>
@@ -80,28 +79,28 @@
           </div>
           <div class="card-body">
             @foreach($details as $detail)
-            <div class="row">
-              <div class="ml-left col-lg-1">
-                <h5>Soal</h5>
-              </div>
-              <div class="ml-left col-lg-9">
-                <p><i>({{$detail->score}} point)</i></p>
-              </div>
-              <div class="ml-right col-lg-2">
-                <a href="javascript:void(0)" onclick="assessment({{$detail->id}}, {{$detail->score}})" class="btn btn-block btn-outline-info btn-sm">
-                    <i class="far fa-plus-square"></i>
-                    Beri Nilai
-                </a>
-              </div>
-            </div>
-            <p><?php 
-              echo nl2br($detail->question->text);
-            ?></p>
-            <h5>Jawaban</h5>
-            <p><?php 
-              echo nl2br($detail->text);
-            ?></p>
-            <br>
+                <div class="row">
+                    <div class="ml-left col-lg-1">
+                        <h5>Soal</h5>
+                    </div>
+                    <div class="ml-left col-lg-9">
+                        <p><i>({{$detail->score}} point)</i></p>
+                    </div>
+                    <div class="ml-right col-lg-2">
+                        <a href="javascript:void(0)" onclick="assessment({{$detail->id}}, {{$detail->score}}, {{ $detail->score_id }})" class="btn btn-block btn-outline-info btn-sm">
+                            <i class="far fa-plus-square"></i>
+                            Beri Nilai
+                        </a>
+                    </div>
+                </div>
+                <p><?php
+                echo nl2br($detail->question->text);
+                ?></p>
+                <h5>Jawaban</h5>
+                <p><?php
+                echo nl2br($detail->text);
+                ?></p>
+                <br>
             @endforeach
           </div>
         </div>
@@ -120,13 +119,13 @@
 <!-- Bootstrap 4 -->
 <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
-<script > 
+<script >
   function assessment(id, score) {
     $("#score_update").val(score).trigger('change');
     $("#id_update").val(id).trigger('change');
     $('#f_modal_edit').modal('show');
     var base = "{{url('/')}}";
-    
+
   }
 </script>
 @endsection

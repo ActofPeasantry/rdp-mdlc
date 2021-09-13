@@ -3,7 +3,10 @@
           <div class="card-body">
             <table id="table_id" class="display table table-bordered table-hover dataTable dtr-inline">
               <thead class="text-center">
-                  <th>Members</th>
+                  <th>kuis</th>
+                  @can('isStudent')
+                    <th>Status</th>
+                  @endcan
               </thead>
               <tbody class="text-left">
                 @foreach ($tasks as $task)
@@ -29,9 +32,20 @@
                         </div>
                       </div>
                     </td>
+                    @can('isStudent')
+                        <td>
+                            @if ($task->scores()->where('student_id', $student->id)->count() < 1)
+                                Belum dikerjakan
+                            @elseif ($task->scores->where('student_id', $student->id)->first()->total_score == null)
+                                Belum dinilai
+                            @elseif ($task->scores->where('student_id', $student->id)->first()->total_score != null)
+                                Nilai kuis : {{ $task->scores->where('student_id', $student->id)->first()->total_score }}
+                            @endif
+                        </td>
+                    @endcan
                   </tr>
                 @endforeach
               </tbody>
-            </table>            
+            </table>
           </div>
           <!-- /.card-body -->

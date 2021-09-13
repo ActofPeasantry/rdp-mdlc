@@ -8,6 +8,7 @@ use App\Models\Classroom;
 use App\Models\Task;
 use App\Models\ClassroomDetail;
 use App\Models\StudyMaterial;
+use App\Models\Student;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class ClassroomController extends Controller
             ->join('classroom_details', 'classrooms.id', '=', 'classroom_details.classroom_id')
             ->where('student_id', Auth::user()->students->id)->get();
         }
-        
+
         return view('backend.lecturer.classroom.index', compact('classrooms'));
     }
 
@@ -82,7 +83,7 @@ class ClassroomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeJoin(Request $request)
+    public function storeJoin(Request $request, ToastrFactory  $flasher)
     {
         //dd($request);
         $classrooms = Classroom::where('code', $request->code)->first();
@@ -149,8 +150,11 @@ class ClassroomController extends Controller
     {
         $classrooms = Classroom::find($id);
         $tasks = Task::where('classroom_id', $id)->get();
+        $student= Student::where('user_id', Auth::user()->id)->first();
+        // dd($student->id);
+        // dd( $tasks[0]->scores->where('student_id', $student->id)->first()->total_score);
         $status = 'kuis';
-        return view('backend.lecturer.classroom.detail', compact('classrooms','tasks','id','status'));
+        return view('backend.lecturer.classroom.detail', compact('classrooms','tasks','id','status', 'student'));
     }
 
     /**

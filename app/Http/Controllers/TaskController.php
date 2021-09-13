@@ -20,7 +20,7 @@ class TaskController extends Controller
      */
     public function index($id)
     {
-        
+
 
     }
 
@@ -111,6 +111,7 @@ class TaskController extends Controller
     public function list($id)
     {
         $lists = Score::all();
+        // dd($lists[0]->students->id);
         $tasks = Task::find($id);
 
         return view('backend.lecturer.task.list.index', compact('lists','id'));

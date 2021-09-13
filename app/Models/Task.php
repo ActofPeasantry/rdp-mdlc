@@ -27,5 +27,10 @@ class Task extends Model
         return $this->hasMany('App\Models\Question', 'task_id', 'id');
     }
 
+    public function scores()
+    {
+        return $this->hasOne('App\Models\Score', 'task_id', 'id');
+    }
+
 
 }

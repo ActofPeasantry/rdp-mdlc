@@ -47,7 +47,7 @@ class ScoreController extends Controller
         }
         $questions = Question::where('task_id', $request->task_id)->get();
         $question = $questions[$no];
-        
+
         return view('backend.student.score.index', compact('question', 'no', 'score_id', 'total', 'detail'));
 
     }
@@ -73,6 +73,7 @@ class ScoreController extends Controller
         //dd($request);
         $detail = scoreDetail::where('score_id', $request->score_id)
         ->where('question_id', $request->question_id)->first();
+
 
         $scores = Score::where('task_id', $request->task_id)
         ->where('student_id', Auth::user()->students->id)

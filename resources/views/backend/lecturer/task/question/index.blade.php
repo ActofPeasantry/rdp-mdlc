@@ -70,11 +70,11 @@
                           <img src="{{asset('image/task.PNG')}}" alt="Avatar" width="50dp" height="40dp">
                         </div>
                         <div class="col-4">
-              
-                            <p><?php 
+
+                            <p><?php
                               $karakter = strlen($question->text);
                               if($karakter<20){
-                                echo substr(nl2br($question->text), 0, 20) ; 
+                                echo substr(nl2br($question->text), 0, 20) ;
                               }else{
                                 echo substr(nl2br($question->text), 0, 20).' ...';
                               }
@@ -121,17 +121,17 @@
 
     <script>
 
-        
+
 
         function delete_question($id) {
             event.preventDefault();
             if(confirm("Apakah anda ingin menghapus data ini?")){
                 $("#delete-question-form-" + $id).submit();
             }
-        } 
+        }
 
         function edit(id, text) {
-          
+
           if($('#edit').is(":visible") && id==id_awal){
             $('#edit').hide('500');
           }else{
@@ -144,8 +144,8 @@
           $('#create').hide('500');
           id_awal = id;
           return text;
-        }   
+        }
 
-        
+
     </script>
 @endsection

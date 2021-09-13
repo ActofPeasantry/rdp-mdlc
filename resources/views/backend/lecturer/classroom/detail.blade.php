@@ -66,7 +66,7 @@
                 </button>
               </div>
               <form method="POST" action="{{ route('tasks.store') }}">
-                <div class="modal-body">              
+                <div class="modal-body">
                       @csrf
                       <input type="hidden" value="{{$classrooms->id}}" name="classroom_id">
                       <div class="form-group row">
@@ -127,7 +127,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-                <div class="modal-body">              
+                <div class="modal-body">
                       <p>Apakah inda ingin memulai kuis?</p>
                 </div>
                 <div class="modal-footer">
@@ -145,7 +145,8 @@
           <div class="card-header">
             <div class="row">
                 <div class="ml-left col-lg-2">
-                    <span class="btn btn-block btn-outline-info btn-sm">Code : {{$classrooms->code}}</span>
+                    <input type="text" class="btn btn-block btn-outline-info btn-sm" value="Code : {{$classrooms->code}}" readonly>
+                    {{-- <span class="btn btn-block btn-outline-info btn-sm">Code : {{$classrooms->code}}</span> --}}
                 </div>
                 @can('isLecturer')
                 <div class="ml-auto col-lg-2">
