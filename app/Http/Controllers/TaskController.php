@@ -46,8 +46,8 @@ class TaskController extends Controller
         // dd(Auth::user());
         $task = new Task;
         $task->name = $request->name;
-        $task->due_date = $request->date;
-        $task->time = $request->time;
+        $task->start_at = $request->start_at;
+        $task->end_at = $request->end_at;
         $task->classroom_id = $request->classroom_id;
         $task->save();
 

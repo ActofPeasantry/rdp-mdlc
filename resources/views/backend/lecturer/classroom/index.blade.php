@@ -18,7 +18,7 @@
   !!}
 @endsection
 
-
+@section('content')
 <div class="container-fluid">
     <div class="row">
       <div class="col-12">
@@ -29,7 +29,7 @@
         <div class="card">
           <div class="card-header">
             <div class="row">
-                <h3 class="card-title ml-auto col-lg-8">List User</h3>
+                <h3 class="card-title ml-auto col-lg-8">List Kelas</h3>
                 @can('isLecturer')
                 <div class="ml-auto col-lg-2">
                     <a href="javascript:void(0)" onclick="$('#create').toggle(500);$('#edit').hide(500);" class="btn btn-block btn-outline-success btn-sm">
@@ -118,6 +118,8 @@
                 $("#delete-class-form-" + $id).submit();
             }
         }
+
+
 
         function edit(id, name) {
 

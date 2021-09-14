@@ -82,20 +82,25 @@ class ClassroomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeJoin(Request $request)
+    public function storeJoin(ToastrFactory  $flasher,Request $request)
     {
         //dd($request);
         $classrooms = Classroom::where('code', $request->code)->first();
         if($classrooms){
-            $detail = new ClassroomDetail;
-            $detail->Classroom_id = $classrooms->id;
-            $detail->student_id = Auth::user()->students->id;
-            $detail->save();
-            //$flasher->addSuccess('Berhasil masuk kelas');
+            $cek = ClassroomDetail::where('classroom_id', $classrooms->id)
+            ->where('student_id', Auth::user()->students->id)->first();
+            if(!$cek){
+                $detail = new ClassroomDetail;
+                $detail->Classroom_id = $classrooms->id;
+                $detail->student_id = Auth::user()->students->id;
+                $detail->save();
+                $flasher->addSuccess('Berhasil masuk kelas');
+            }else{
+                $flasher->addError('Anda telah berada di kelas');
+            }
         }else{
-            //$flasher->addFailed('Kelas tidak tersedia');
-        }
-        $flasher->addSuccess('Berhasil masuk kelas');
+            $flasher->addError('Kelas tidak tersedia');
+        }   
         return redirect(route('lecturer.classrooms.index', 'data=data-student'));
     }
 

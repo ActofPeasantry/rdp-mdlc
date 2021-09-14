@@ -44,7 +44,19 @@
                         </span>
                         @enderror
                     </div>
+                    <div class="form-group row">
+                        <label class="col-xl-2 col-lg-2 col-form-label">Nilai Maksimal</label>
+                        <label class="col-xl-1 col-lg-1 col-form-label">:</label>
+                        <div class="col-lg-9 col-xl-9">
+                            <input type="number" name="max_score" id="max_score" value="{{$question->max_score}}"></input>
 
+                        @error('text')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                        </div>
+                    </div>
 
                     <div class="text-center">
                         <a href="{{route('lecturer.tasks.show', $tasks->id)}}" class="btn btn-default">Batalkan</a>

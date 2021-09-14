@@ -78,7 +78,7 @@
                               }else{
                                 echo substr(nl2br($question->text), 0, 20).' ...';
                               }
-                            ?></p>
+                            ?>  <i>(max: {{$question->max_score}} point)</i></p>
 
                         </div>
                         <div class="ml-right col-lg-2">

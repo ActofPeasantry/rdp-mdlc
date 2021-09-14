@@ -12,6 +12,7 @@ class Question extends Model
     protected $fillable = [
         'no',
         'text',
+        'max_score',
         'task_id',
     ];
 

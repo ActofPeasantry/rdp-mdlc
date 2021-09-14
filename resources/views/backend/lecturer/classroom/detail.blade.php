@@ -85,11 +85,11 @@
                           </div>
                       </div>
                       <div class="form-group row">
-                          <label class="col-xl-2 col-lg-2 col-form-label">Due Date</label>
+                          <label class="col-xl-2 col-lg-2 col-form-label">Mulai</label>
                           <label class="col-xl-1 col-lg-1 col-form-label">:</label>
-                          <div class="col-lg-5 col-xl-5">
-                            <input id="date" type="date" class="form-control @error('date') is-invalid @enderror" name="date"
-                            required autocomplete="date">
+                          <div class="col-lg-9 col-xl-9">
+                            <input id="start_at" type="datetime-local" class="form-control @error('start_at') is-invalid @enderror" name="start_at"
+                            required autocomplete="start_at">
 
                             @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -97,9 +97,13 @@
                             </span>
                             @enderror
                           </div>
-                          <div class="col-lg-4 col-xl-4">
-                            <input id="time" type="time" class="form-control @error('time') is-invalid @enderror" name="time"
-                            required autocomplete="time">
+                      </div>
+                      <div class="form-group row">
+                          <label class="col-xl-2 col-lg-2 col-form-label">Selesai</label>
+                          <label class="col-xl-1 col-lg-1 col-form-label">:</label>
+                          <div class="col-lg-9 col-xl-9">
+                            <input id="end_at" type="datetime-local" class="form-control @error('end_at') is-invalid @enderror" name="end_at"
+                            required autocomplete="end_at">
 
                             @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -127,13 +131,16 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
+              <form action="{{route('student.scores.index')}}">
                 <div class="modal-body">              
                       <p>Apakah inda ingin memulai kuis?</p>
+                      <input type="hidden" id="task_id" name="task_id">
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                  <a href="{{route('student.scores.index')}}" type="submit" class="btn btn-primary">Ya</a>
+                  <button  type="submit" class="btn btn-primary">Ya</button>
                 </div>
+              </form>
             </div>
           </div>
         </div>
@@ -220,6 +227,11 @@
     </script>
 
     <script>
+        function modal(id) {
+            console.log(id);
+            $('#task_id').val(id);
+        }
+
         function delete_class($id) {
             event.preventDefault();
             if(confirm("Apakah anda ingin menghapus data ini?")){
