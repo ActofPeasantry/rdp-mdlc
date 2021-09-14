@@ -21,8 +21,9 @@ class Score extends Model
         return $this->belongsTo('App\Models\Task', 'task_id');
     }
 
-    public function student()
+    public function students()
     {
-        return $this->hasOne(Student::class, 'id', 'student_id');
+        return $this->belongsTo(Student::class, 'student_id');
     }
+
 }

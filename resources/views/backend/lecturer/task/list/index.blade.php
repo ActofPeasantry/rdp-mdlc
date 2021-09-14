@@ -46,9 +46,9 @@
                   @foreach ($lists as $list)
                     <tr>
                       <td>{{$n}}</td>
-                      <td>{{$list->student->name}}</td>
-                      <td>{{$list->student->users->username}}</td>
-                      <td>{{$list->student->users->email}}</td>
+                      <td>{{$list->students->name}}</td>
+                      <td>{{$list->students->users->username}}</td>
+                      <td>{{$list->students->users->email}}</td>
                       <td>
                         <a href= {{route('lecturer.ScoreDetail.show', [$list->id])}} class="btn btn-sm btn-info">
                           <i class="fa fa-eye"></i>

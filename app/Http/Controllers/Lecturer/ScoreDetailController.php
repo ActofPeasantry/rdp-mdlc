@@ -51,7 +51,7 @@ class ScoreDetailController extends Controller
     public function show($id)
     {
         $details = ScoreDetail::where('score_id', $id)->get();
-        //dd($details);
+        // dd($details);
         return view('backend.lecturer.assessment.show', compact('details'));
     }
 
@@ -75,14 +75,22 @@ class ScoreDetailController extends Controller
      */
     public function update(ToastrFactory  $flasher, Request $request, $id)
     {
-        
+
         $detail = ScoreDetail::find($request->id);
+        $score = Score::find($detail->score_id);
+
         $detail->score = $request->score;
         $detail->save();
+        // dd($detail);
+
+        $sum_score = $detail->avg('score');
+        $score->total_score = round($sum_score, 2);
+        $score->save();
+
         // $new = new \DateTime();
         // $score = Score::find($detail->score_id);
         // $new2 = new \DateTime($score->start_at);
-        
+
         // $bool = $new < $new2 ;
         // dd($bool);
 
