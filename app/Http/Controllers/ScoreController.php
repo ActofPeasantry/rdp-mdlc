@@ -28,7 +28,7 @@ class ScoreController extends Controller
         $now = new \DateTime();
         $start = new \DateTime($task->start_at);
         $end = new \DateTime($task->end_at);
-        
+
         if($now >= $start && $now <= $end){
             $scores = Score::where('task_id', $request->task_id)
             ->where('student_id', Auth::user()->students->id)
@@ -54,7 +54,7 @@ class ScoreController extends Controller
             }
             $questions = Question::where('task_id', $request->task_id)->get();
             $question = $questions[$no];
-            
+
             return view('backend.student.score.index', compact('question', 'no', 'score_id', 'total', 'detail'));
         }else{
             $flasher->addWarning("Kuis hanya dapat dikerjakan pada waktu yang ditentukan");
@@ -95,42 +95,10 @@ class ScoreController extends Controller
         $now = new \DateTime();
         $start = new \DateTime($task->start_at);
         $end = new \DateTime($task->end_at);
-        
+
         if($now >= $start && $now <= $end){
-            //dd($request);
-        //dd($request);
-        $detail = scoreDetail::where('score_id', $request->score_id)
-        ->where('question_id', $request->question_id)->first();
 
-
-        $scores = Score::where('task_id', $request->task_id)
-        ->where('student_id', Auth::user()->students->id)
-        ->first();
-
-        $score_id =  $scores->id;
-
-        if(!$detail){
-            $detail = new scoreDetail;
-            $detail->text = $request->text;
-            $detail->score_id = $request->score_id;
-            $detail->question_id = $request->question_id;
-            $detail->save();
-        }else{
-            $detail->text = $request->text;
-            $detail->score_id = $request->score_id;
-            $detail->question_id = $request->question_id;
-            $detail->save();
-        }
-
-        $questions = Question::where('task_id', $request->task_id)->get();
-
-        $total = Question::where('task_id', $request->task_id)->count();
-        $no = $request->no + 1;
-        //dd($no);
-        if($no < $total){
-            $question = $questions[$no];
-            $detail = scoreDetail::where('score_id', $request->score_id)
-            ->where('question_id', $request->question_id)->first();
+            $detail = scoreDetail::where('score_id', $request->score_id)->where('question_id', $request->question_id)->first();
 
             $scores = Score::where('task_id', $request->task_id)
             ->where('student_id', Auth::user()->students->id)
@@ -144,7 +112,8 @@ class ScoreController extends Controller
                 $detail->score_id = $request->score_id;
                 $detail->question_id = $request->question_id;
                 $detail->save();
-            }else{
+            }
+            else{
                 $detail->text = $request->text;
                 $detail->score_id = $request->score_id;
                 $detail->question_id = $request->question_id;
@@ -155,23 +124,56 @@ class ScoreController extends Controller
 
             $total = Question::where('task_id', $request->task_id)->count();
             $no = $request->no + 1;
-            //dd($no);
+        //dd($no);
             if($no < $total){
                 $question = $questions[$no];
                 $detail = scoreDetail::where('score_id', $request->score_id)
-                ->where('question_id', $question->id)->first();
-                return view('backend.student.score.index', compact('question', 'no', 'score_id', 'total', 'detail'));
-            }else{
-                $tasks = Task::find($request->task_id);
-                $id = $tasks->classroom_id;
-                $classrooms = Classroom::find($tasks->classroom_id);
-                $tasks = Task::where('classroom_id', $classrooms->id)->get();
-                $status = 'kuis';
-                return view('backend.lecturer.classroom.detail', compact('classrooms','tasks','id','status'));
+                ->where('question_id', $request->question_id)->first();
+
+                $scores = Score::where('task_id', $request->task_id)
+                ->where('student_id', Auth::user()->students->id)
+                ->first();
+
+                $score_id =  $scores->id;
+
+                if(!$detail){
+                    $detail = new scoreDetail;
+                    $detail->text = $request->text;
+                    $detail->score_id = $request->score_id;
+                    $detail->question_id = $request->question_id;
+                    $detail->save();
+                }
+                else{
+                    $detail->text = $request->text;
+                    $detail->score_id = $request->score_id;
+                    $detail->question_id = $request->question_id;
+                    $detail->save();
+                }
+
+                $questions = Question::where('task_id', $request->task_id)->get();
+
+                $total = Question::where('task_id', $request->task_id)->count();
+                $no = $request->no + 1;
+                //dd($no);
+                if($no < $total){
+                    $question = $questions[$no];
+                    $detail = scoreDetail::where('score_id', $request->score_id)
+                    ->where('question_id', $question->id)->first();
+                    return view('backend.student.score.index', compact('question', 'no', 'score_id', 'total', 'detail'));
+                }
+                else{
+                    $tasks = Task::find($request->task_id);
+                    $id = $tasks->classroom_id;
+                    $classrooms = Classroom::find($tasks->classroom_id);
+                    $tasks = Task::where('classroom_id', $classrooms->id)->get();
+                    $status = 'kuis';
+                    return view('backend.lecturer.classroom.detail', compact('classrooms','tasks','id','status'));
+                }
             }
-        }else{
-            $flasher->addWarning("Kuis hanya dapat dikerjakan pada waktu yang ditentukan");
-            return redirect(route('classrooms.task', $task->classroom_id));
+            else{
+                $flasher->addWarning("Kuis hanya dapat dikerjakan pada waktu yang ditentukan");
+                return redirect(route('classrooms.task', $task->classroom_id));
+            }
         }
     }
 
@@ -219,4 +221,14 @@ class ScoreController extends Controller
     {
         //
     }
+
+    public function indexAjax(ToastrFactory $flasher, Request $request){
+        $task = Task::find($request->task_id);
+        $question = Question::where('task_id', $request->task_id)->get();
+        $paginator = Question::where('task_id', $request->task_id)->paginate(1)->withQueryString();
+        // dd($paginator);
+
+        return view('backend.student.score.indexAjax', compact('paginator', 'question', 'task'));
+    }
+
 }

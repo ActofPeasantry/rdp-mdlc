@@ -82,6 +82,8 @@ Route::prefix('student')->middleware(['auth', 'auth.isStudent'])->name('student.
     Route::get('/classroom/{id}/members', [ClassroomController::class, 'members'])->name('classrooms.members');
     Route::get('/classroom/join', [ClassroomController::class, 'join'])->name('classrooms.join');
     Route::post('/classroom/storeJoin', [ClassroomController::class, 'storeJoin'])->name('classrooms.storeJoin');
+
     Route::resource('/scores', ScoreController::class);
+    // Route::get('/scores', [ScoreController::class, 'indexAjax'])->name('scores.indexAjax');
 });
 

@@ -122,28 +122,7 @@
           </div>
         </div>
 
-        <div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalTitle" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="scoreModalTitle">Memulai Kuis</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <form action="{{route('student.scores.index')}}">
-                <div class="modal-body">              
-                      <p>Apakah inda ingin memulai kuis?</p>
-                      <input type="hidden" id="task_id" name="task_id">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                  <button  type="submit" class="btn btn-primary">Ya</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+
 
     <div class="row">
       <div class="col-12">

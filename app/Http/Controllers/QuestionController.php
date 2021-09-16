@@ -40,7 +40,7 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ToastrFactory  $flasher, Request $request)
+    public function store(ToastrFactory $flasher, Request $request)
     {
         $no = Question::where('task_id',$request->task_id)->count();
         $question = new Question;
