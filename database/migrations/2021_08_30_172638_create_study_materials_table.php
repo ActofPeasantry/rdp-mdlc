@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTasksTable extends Migration
+class CreateStudyMaterialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('study_materials', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->datetime('start_at');
-            $table->datetime('end_at');
-            $table->timestamps();
+            $table->string('title');
+            $table->mediumText('abstract');
+            $table->longText('description');
 
             $table->foreignId('classroom_id')->constrained('classrooms')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -31,6 +31,6 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('study_materials');
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Flasher\Toastr\Prime\ToastrFactory;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -24,7 +25,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         try{
             if($input['role']=='dosen'){
-                Validator::make($input, [
+                $validator = Validator::make($input, [
                     'nip' => ['required', 'string', 'max:20'],
                     'name' => ['required', 'string', 'max:255'],
                     'birthplace' => ['required', 'string', 'max:255'],
@@ -39,7 +40,11 @@ class CreateNewUser implements CreatesNewUsers
                         Rule::unique(User::class),
                     ],
                     'password' => $this->passwordRules(),
-                ])->validate();
+                ]);
+
+                $validator->validate();
+                
+                
 
                 $user = new User;
                 $user->username = $input['username'];
@@ -92,7 +97,7 @@ class CreateNewUser implements CreatesNewUsers
                 return $user;
             }
         }catch(\Exception $e){
-            dd($e);
+            return redirect()->back();
         }
     }
 }

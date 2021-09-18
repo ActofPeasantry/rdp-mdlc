@@ -12,7 +12,8 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'Kelola Kelas' => '#'
+            'Kelola Kelas' => route('lecturer.classrooms.index'),
+            'Kelola Detail Kelas' => '#'
         )
     )
   !!}
@@ -59,13 +60,13 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Menambahkan Kuis</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form method="POST" action="{{ route('lecturer.tasks.store') }}">
-                <div class="modal-body">              
+              <form method="POST" action="{{ route('tasks.store') }}">
+                <div class="modal-body">
                       @csrf
                       <input type="hidden" value="{{$classrooms->id}}" name="classroom_id">
                       <div class="form-group row">
@@ -84,11 +85,11 @@
                           </div>
                       </div>
                       <div class="form-group row">
-                          <label class="col-xl-2 col-lg-2 col-form-label">Due Date</label>
+                          <label class="col-xl-2 col-lg-2 col-form-label">Mulai</label>
                           <label class="col-xl-1 col-lg-1 col-form-label">:</label>
-                          <div class="col-lg-5 col-xl-5">
-                            <input id="date" type="date" class="form-control @error('date') is-invalid @enderror" name="date"
-                            required autocomplete="date">
+                          <div class="col-lg-9 col-xl-9">
+                            <input id="start_at" type="datetime-local" class="form-control @error('start_at') is-invalid @enderror" name="start_at"
+                            required autocomplete="start_at">
 
                             @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -96,9 +97,13 @@
                             </span>
                             @enderror
                           </div>
-                          <div class="col-lg-4 col-xl-4">
-                            <input id="time" type="time" class="form-control @error('time') is-invalid @enderror" name="time"
-                            required autocomplete="time">
+                      </div>
+                      <div class="form-group row">
+                          <label class="col-xl-2 col-lg-2 col-form-label">Selesai</label>
+                          <label class="col-xl-1 col-lg-1 col-form-label">:</label>
+                          <div class="col-lg-9 col-xl-9">
+                            <input id="end_at" type="datetime-local" class="form-control @error('end_at') is-invalid @enderror" name="end_at"
+                            required autocomplete="end_at">
 
                             @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -116,6 +121,30 @@
             </div>
           </div>
         </div>
+
+        <div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="scoreModalTitle">Memulai Kuis</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="{{route('student.scores.index')}}">
+                <div class="modal-body">              
+                      <p>Apakah inda ingin memulai kuis?</p>
+                      <input type="hidden" id="task_id" name="task_id">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                  <button  type="submit" class="btn btn-primary">Ya</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
     <div class="row">
       <div class="col-12">
 
@@ -123,7 +152,8 @@
           <div class="card-header">
             <div class="row">
                 <div class="ml-left col-lg-2">
-                    <span class="btn btn-block btn-outline-info btn-sm">Code : {{$classrooms->code}}</span>
+                    <input type="text" class="btn btn-block btn-outline-info btn-sm" value="Code : {{$classrooms->code}}" readonly>
+                    {{-- <span class="btn btn-block btn-outline-info btn-sm">Code : {{$classrooms->code}}</span> --}}
                 </div>
                 @can('isLecturer')
                 <div class="ml-auto col-lg-2">
@@ -134,40 +164,40 @@
                     <div class="dropdown">
                       <button class="btn btn-block btn-outline-info btn-sm"><i class="far fa-plus-square"></i>&nbsp;&nbsp;Add Materials</button>
                       <div class="dropdown-content">
-                        <a class="dropdown-item" href="#" >&nbsp;&nbsp;Materi</a>
+                        <a class="dropdown-item" href="{{ route('lecturer.materials.create', $classrooms->id) }}" >&nbsp;&nbsp;Materi</a>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalLong">&nbsp;&nbsp;Kuis</a>
                       </div>
                     </div>
                 </div>
                 @endcan
-                @can('isStudent')
+                <!-- @can('isStudent')
                 <div class="ml-auto col-lg-2">
-                    <a href={{route("lecturer.classrooms.join")}} class="btn btn-block btn-outline-info btn-sm">
+                    <a href={{route("student.classrooms.join")}} class="btn btn-block btn-outline-info btn-sm">
                         <i class="far fa-plus-square"></i>
                         Masuk Kelas
                     </a>
                 </div>
-                @endcan
+                @endcan -->
             </div>
             <br>
             <div>
               @if($status=='members')
                 <ul>
-                  <li><a href="{{route('lecturer.classrooms.materi', $id)}}">Materi</a></li>
-                  <li><a class="active" href="{{route('lecturer.classrooms.members', $id)}}">Members</a></li>
-                  <li><a href="{{route('lecturer.classrooms.task', $id)}}">Kuis</a></li>
+                  <li><a href="{{route('classrooms.materi', $id)}}">Materi</a></li>
+                  <li><a class="active" href="{{route('classrooms.members', $id)}}">Members</a></li>
+                  <li><a href="{{route('classrooms.task', $id)}}">Kuis</a></li>
                 </ul>
               @elseif($status=='materi')
                 <ul>
-                  <li><a class="active" href="{{route('lecturer.classrooms.materi', $id)}}">Materi</a></li>
-                  <li><a href="{{route('lecturer.classrooms.members', $id)}}">Members</a></li>
-                  <li><a href="{{route('lecturer.classrooms.task', $id)}}">Kuis</a></li>
+                  <li><a class="active" href="{{route('classrooms.materi', $id)}}">Materi</a></li>
+                  <li><a href="{{route('classrooms.members', $id)}}">Members</a></li>
+                  <li><a href="{{route('classrooms.task', $id)}}">Kuis</a></li>
                 </ul>
               @elseif($status=='kuis')
                 <ul>
-                  <li><a href="{{route('lecturer.classrooms.materi', $id)}}">Materi</a></li>
-                  <li><a href="{{route('lecturer.classrooms.members', $id)}}">Members</a></li>
-                  <li><a class="active" href="{{route('lecturer.classrooms.task', $id)}}">Kuis</a></li>
+                  <li><a href="{{route('classrooms.materi', $id)}}">Materi</a></li>
+                  <li><a href="{{route('classrooms.members', $id)}}">Members</a></li>
+                  <li><a class="active" href="{{route('classrooms.task', $id)}}">Kuis</a></li>
                 </ul>
               @endif
             </div>
@@ -194,19 +224,24 @@
         $(document).ready( function () {
             $('#table_id').DataTable();
         } );
-        
+
     </script>
 
     <script>
+        function modal(id) {
+            console.log(id);
+            $('#task_id').val(id);
+        }
+
         function delete_class($id) {
             event.preventDefault();
             if(confirm("Apakah anda ingin menghapus data ini?")){
                 $("#delete-class-form-" + $id).submit();
             }
-        }    
+        }
 
         function edit(id, name) {
-          
+
           if($('#edit').is(":visible") && id==id_awal){
             $('#edit').hide('500');
           }else{
@@ -217,6 +252,20 @@
 
           $('#create').hide('500');
           id_awal = id;
-        }   
+        }
+    </script>
+
+    <script>
+        var $n = 0;
+        $('#table_id > tbody  > tr').each(function(){
+            var $log = $( "#abstract-" + $n ),
+            str = $( "#material-abstract" ).val(),
+            html = $.parseHTML( str ),
+            nodeNames = [];
+
+            // Append the parsed HTML
+            $log.append( html );
+            $n++;
+        });
     </script>
 @endsection

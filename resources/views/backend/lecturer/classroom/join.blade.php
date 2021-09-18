@@ -27,7 +27,7 @@
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('lecturer.classrooms.storeJoin') }}">
+                <form method="POST" action="{{ route('student.classrooms.storeJoin') }}">
                     @csrf
                     {{-- Name --}}
                     <div class="form-group mb-3">
