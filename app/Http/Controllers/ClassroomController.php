@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lecturer;
 use App\Models\Classroom;
 use App\Models\Task;
-use App\Models\ClassroomDetail;
+use App\Models\ClassroomDetail as Detail;
 use App\Models\StudyMaterial;
 use App\Models\Student;
 use Flasher\Toastr\Prime\ToastrFactory;
@@ -88,10 +88,10 @@ class ClassroomController extends Controller
         //dd($request);
         $classrooms = Classroom::where('code', $request->code)->first();
         if($classrooms){
-            $cek = ClassroomDetail::where('classroom_id', $classrooms->id)
+            $cek = Detail::where('classroom_id', $classrooms->id)
             ->where('student_id', Auth::user()->students->id)->first();
             if(!$cek){
-                $detail = new ClassroomDetail;
+                $detail = new Detail;
                 $detail->Classroom_id = $classrooms->id;
                 $detail->student_id = Auth::user()->students->id;
                 $detail->save();
