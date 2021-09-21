@@ -92,7 +92,7 @@ class ClassroomController extends Controller
             ->where('student_id', Auth::user()->students->id)->first();
             if(!$cek){
                 $detail = new Detail;
-                $detail->Classroom_id = $classrooms->id;
+                $detail->classroom_id = $classrooms->id;
                 $detail->student_id = Auth::user()->students->id;
                 $detail->save();
                 $flasher->addSuccess('Berhasil masuk kelas');
