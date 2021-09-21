@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lecturer;
 use App\Models\Classroom;
 use App\Models\Task;
-use App\Models\ClassroomDetail as Detail;
+use App\Models\classroomDetail as Detail;
 use App\Models\StudyMaterial;
 use App\Models\Student;
 use Flasher\Toastr\Prime\ToastrFactory;
