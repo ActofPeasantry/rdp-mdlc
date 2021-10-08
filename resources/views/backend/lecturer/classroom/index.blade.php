@@ -61,7 +61,7 @@
               <a href="{{route('classrooms.materi', $class->id)}}">
               <div class="card-body">
                 <div class="card">
-                  <img src="https://mdlc.herokuapp.com/image/group.JPG" alt="Avatar">
+                  <img src="https://mdlc.herokuapp.com/image/group.jpg" alt="Avatar">
                   <div class="container">
                     <div class="row">
                       <div class="ml-left col-lg-12">
