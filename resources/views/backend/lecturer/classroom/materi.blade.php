@@ -11,7 +11,7 @@
                 <td>
                     <div class="row">
                         <div class="ml-right col-1">
-                            <img src="{{asset('image/task.jpg')}}" alt="Avatar" width="50dp">
+                            <img src="{{asset('image/task.png')}}" alt="Avatar" width="50dp">
                         </div>
 
                         <div class="col-10">
