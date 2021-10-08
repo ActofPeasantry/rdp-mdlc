@@ -111,7 +111,7 @@ class TaskController extends Controller
     public function list($id)
     {
         $lists = Score::where('task_id', $id)->get();
-        dd($id);
+        dd($lists);
         // dd($lists[0]->students->id);
         $tasks = Task::find($id);
 
