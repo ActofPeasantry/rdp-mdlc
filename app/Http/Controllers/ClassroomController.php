@@ -126,7 +126,7 @@ class ClassroomController extends Controller
     public function materi($id)
     {
         $classrooms = Classroom::find($id);
-        $materials =  StudyMaterial::where('classroom_id', $id)->get();
+        $materials =  StudyMaterial::where('classroom_id', $id)->orderBy('created_at', 'desc')->get();
         // dd($materials[0]->abstract);
         $status = 'materi';
         return view('backend.lecturer.classroom.detail', compact('classrooms','id','status', 'materials'));
@@ -154,7 +154,7 @@ class ClassroomController extends Controller
     public function task($id)
     {
         $classrooms = Classroom::find($id);
-        $tasks = Task::where('classroom_id', $id)->get();
+        $tasks = Task::where('classroom_id', $id)->orderBy('created_at', 'asc')->get();
         $student= Student::where('user_id', Auth::user()->id)->first();
         // dd($student->id);
         // dd( $tasks[0]->scores->where('student_id', $student->id)->first()->total_score);
