@@ -38,7 +38,7 @@
       display: block;
       color: white;
       text-align: center;
-      padding: 14px 16px;
+      padding: 14px 10px;
       text-decoration: none;
   }
 
@@ -185,19 +185,19 @@
                 <ul>
                   <li><a href="{{route('classrooms.materi', $id)}}">Materi</a></li>
                   <li><a class="active" href="{{route('classrooms.members', $id)}}">Members</a></li>
-                  <li style="padding: 14px 10px"><a href="{{route('classrooms.task', $id)}}">Tugas / Kuis</a></li>
+                  <li><a href="{{route('classrooms.task', $id)}}">Tugas / Kuis</a></li>
                 </ul>
               @elseif($status=='materi')
                 <ul>
                   <li><a class="active" href="{{route('classrooms.materi', $id)}}">Materi</a></li>
                   <li><a href="{{route('classrooms.members', $id)}}">Members</a></li>
-                  <li style="padding: 14px 10px"><a href="{{route('classrooms.task', $id)}}">Tugas / Kuis</a></li>
+                  <li><a href="{{route('classrooms.task', $id)}}">Tugas / Kuis</a></li>
                 </ul>
               @elseif($status=='kuis')
                 <ul>
                   <li><a href="{{route('classrooms.materi', $id)}}">Materi</a></li>
                   <li><a href="{{route('classrooms.members', $id)}}">Members</a></li>
-                  <li style="padding: 14px 10px"><a class="active" href="{{route('classrooms.task', $id)}}">Tugas / Kuis</a></li>
+                  <li><a class="active" href="{{route('classrooms.task', $id)}}">Tugas / Kuis</a></li>
                 </ul>
               @endif
             </div>
