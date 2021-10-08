@@ -45,7 +45,6 @@ class QuestionController extends Controller
         $no = Question::where('task_id',$request->task_id)->count();
         $question = new Question;
         $question->text = $request->text;
-        $question->max_score = $request->max_score;
         $question->no = $no+1;
         $question->task_id = $request->task_id;
         $question->save();

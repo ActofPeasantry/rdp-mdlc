@@ -87,7 +87,7 @@
                         <p><i>({{$detail->score}} point)</i></p>
                     </div>
                     <div class="ml-right col-lg-2">
-                        <a href="javascript:void(0)" onclick="assessment({{$detail->id}}, {{$detail->score}}, {{ $detail->score_id }})" class="btn btn-block btn-outline-info btn-sm">
+                        <a href="javascript:void(0)" onclick="assessment({{$detail->id}}, {{$detail->score}})" class="btn btn-block btn-outline-info btn-sm">
                             <i class="far fa-plus-square"></i>
                             Beri Nilai
                         </a>
