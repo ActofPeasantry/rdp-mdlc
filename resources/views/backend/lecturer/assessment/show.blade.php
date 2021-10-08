@@ -80,7 +80,7 @@
           <div class="card-header">
             <div class="row">
                 <h3 class="card-title ml-left col-lg-8">List Penilaian</h3>
-                <h3 class="ml-right col-lg-6"><i>Total Score : {{$total}}</i></h3>
+                <h3 class="card-title ml-right col-lg-4"><i>Total Score : {{$total}}</i></h3>
             </div>
           </div>
           <div class="card-body">
