@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\LecturerController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\Lecturer\StudyMaterialController;
 use App\Http\Controllers\Lecturer\ScoreDetailController;
@@ -35,6 +36,10 @@ Route::get('/', function () {
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Upload Image Controller
+Route::post('/image-upload', [FileUploadController::class, 'imageUpload'])->name('imageUpload');
+
 Route::resource('/classrooms', ClassroomController::class);
     Route::get('/classroom/{id}/materi', [ClassroomController::class, 'materi'])->name('classrooms.materi');
     Route::get('/classroom/{id}/members', [ClassroomController::class, 'members'])->name('classrooms.members');
@@ -84,4 +89,6 @@ Route::prefix('student')->middleware(['auth', 'auth.isStudent'])->name('student.
     Route::post('/classroom/storeJoin', [ClassroomController::class, 'storeJoin'])->name('classrooms.storeJoin');
     Route::resource('/scores', ScoreController::class);
 });
+
+
 
