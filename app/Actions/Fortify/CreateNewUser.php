@@ -43,13 +43,13 @@ class CreateNewUser implements CreatesNewUsers
                 ]);
 
                 $validator->validate();
-                
-                
+
+
 
                 $user = new User;
                 $user->username = $input['username'];
                 $user->email = $input['email'];
-                $user->password = $input['password'];
+                $user->password = Hash::make($input['password']);
                 $user->save();
 
                 $lecturer = new Lecturer;
@@ -82,7 +82,7 @@ class CreateNewUser implements CreatesNewUsers
                 $user = new User;
                 $user->username = $input['username'];
                 $user->email = $input['email'];
-                $user->password = $input['password'];
+                $user->password = Hash::make($input['password']);
                 $user->save();
 
                 $student = new Student;

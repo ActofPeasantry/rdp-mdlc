@@ -45,7 +45,7 @@
       @include('layout/sidebar_user')
 
       <!-- SidebarSearch Form -->
-      @include('layout/sidebar_search')
+      {{-- @include('layout/sidebar_search') --}}
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">

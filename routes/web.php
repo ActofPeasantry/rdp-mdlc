@@ -12,6 +12,7 @@ use App\Http\Controllers\Lecturer\StudyMaterialController;
 use App\Http\Controllers\Lecturer\ScoreDetailController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\User\ProfileCOntroller;
 use App\Models\StudyMaterial;
 
 /*
@@ -37,15 +38,20 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 // Upload Image Controller
 Route::post('/image-upload', [FileUploadController::class, 'imageUpload'])->name('imageUpload');
 
 Route::resource('/classrooms', ClassroomController::class);
-    Route::get('/classroom/{id}/materi', [ClassroomController::class, 'materi'])->name('classrooms.materi');
-    Route::get('/classroom/{id}/members', [ClassroomController::class, 'members'])->name('classrooms.members');
-    Route::get('/classroom/{id}/task', [ClassroomController::class, 'task'])->name('classrooms.task');
-    Route::resource('/tasks', TaskController::class);
+Route::get('/classroom/{id}/materi', [ClassroomController::class, 'materi'])->name('classrooms.materi');
+Route::get('/classroom/{id}/members', [ClassroomController::class, 'members'])->name('classrooms.members');
+Route::get('/classroom/{id}/task', [ClassroomController::class, 'task'])->name('classrooms.task');
+Route::resource('/tasks', TaskController::class);
 
+// Profile Route
+Route::prefix('user')->middleware(['auth'])->name('user.')->group(function(){
+    Route::get('/profile', ProfileController::class)->name('profile');
+});
 
 //Admin Routes
 //Nama route : admin.user.{{nama_function_controller}} ex: admin.user.index
