@@ -206,4 +206,14 @@ class ClassroomController extends Controller
 
         return redirect()->back();
     }
+
+    public function memberDestroy(ToastrFactory  $flasher, $id)
+    {
+        //dd($id);
+        $detail= ClassroomDetail::findorFail($id);
+        // dd($question);
+        $detail->delete();
+        $flasher->addError('Data dihapus');
+        return redirect()->back();
+    }
 }
