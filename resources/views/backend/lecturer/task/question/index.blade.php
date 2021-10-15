@@ -33,7 +33,7 @@
         <div class="card">
           <div class="card-header">
             <div class="row">
-                <h3 class="card-title ml-left col-lg-8">List Pertanyaan</h3>
+                <h3 class="card-title ml-left col-lg-6">List Pertanyaan</h3>
                 @can('isLecturer')
                 <div class="ml-auto col-lg-2">
                     <a href="{{route('lecturer.tasks.list', $id)}}" class="btn btn-block btn-outline-info btn-sm">
@@ -47,6 +47,16 @@
                         Tambah Pertanyaan
                     </a>
                 </div>
+                <div class="ml-auto col-lg-2">
+                    <a href="javascript:void(0)" onclick="delete_task({{$id}})" class="btn btn-block btn-outline-danger btn-sm">
+                        <i class="far fa-plus-square"></i>
+                        Hapus Kuis
+                    </a>
+                </div>
+                <form id="delete-task-form-{{$id}}" action="{{route('lecturer.tasks.destroy', $id)}}" method="POST">
+                    @csrf
+                    @method("DELETE")
+                  </form>
                 <!-- <div class="ml-auto col-lg-2">
                     <a href={{route("lecturer.classrooms.create")}} class="btn btn-block btn-outline-success btn-sm">
                         <i class="far fa-plus-square"></i>
@@ -67,7 +77,7 @@
                     <td>
                       <div class="row">
                         <div class="ml-right col-1">
-                          <img src="{{asset('image/task.png')}}" alt="Avatar" width="50dp" height="40dp">
+                          <img src="{{asset('image/task.PNG')}}" alt="Avatar" width="50dp" height="40dp">
                         </div>
                         <div class="col-4">
 
@@ -78,7 +88,7 @@
                               }else{
                                 echo substr(nl2br($question->text), 0, 20).' ...';
                               }
-                            ?> 
+                            ?>
 
                         </div>
                         <div class="ml-right col-lg-2">
@@ -127,6 +137,12 @@
             event.preventDefault();
             if(confirm("Apakah anda ingin menghapus data ini?")){
                 $("#delete-question-form-" + $id).submit();
+            }
+        }
+        function delete_task($id) {
+            event.preventDefault();
+            if(confirm("Apakah anda ingin menghapus data ini?")){
+                $("#delete-task-form-" + $id).submit();
             }
         }
 

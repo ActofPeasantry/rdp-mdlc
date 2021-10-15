@@ -58,6 +58,7 @@ Route::prefix('lecturer')->middleware(['auth', 'auth.isLecturer'])->name('lectur
     Route::get('/classroom/join', [ClassroomController::class, 'join'])->name('classrooms.join');
     Route::get('/classroom/{id}/materi', [ClassroomController::class, 'materi'])->name('classrooms.materi');
     Route::get('/classroom/{id}/members', [ClassroomController::class, 'members'])->name('classrooms.members');
+    Route::delete('/classroom/{id}/members/destroy', [ClassroomController::class, 'memberDestroy'])->name('classrooms.memberDestroy');
     Route::get('/classroom/{id}/task', [ClassroomController::class, 'task'])->name('classrooms.task');
     Route::post('/classroom/storeJoin', [ClassroomController::class, 'storeJoin'])->name('classrooms.storeJoin');
     // Task lecturer.tasks.index
