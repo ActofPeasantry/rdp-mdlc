@@ -210,7 +210,7 @@ class ClassroomController extends Controller
     public function memberDestroy(ToastrFactory  $flasher, $id)
     {
         //dd($id);
-        $detail= ClassroomDetail::findorFail($id);
+        $detail= Detail::findorFail($id);
         // dd($question);
         $detail->delete();
         $flasher->addError('Data dihapus');
