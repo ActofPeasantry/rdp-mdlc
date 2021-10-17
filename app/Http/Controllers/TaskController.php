@@ -97,9 +97,13 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ToastrFactory  $flasher,$id)
     {
-        //
+        $task= Task::findorFail($id);
+        // dd($question);
+        $task->delete();
+        $flasher->addError('Data dihapus');
+        return redirect(route('classrooms.task', $task->classroom_id));
     }
 
     /**
