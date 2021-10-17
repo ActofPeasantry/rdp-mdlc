@@ -2,7 +2,7 @@
 
 
 @section('page_name')
-    <h1>Tambah Materi Belajar</h1>
+    <h1>Materi Belajar : {{$study->title}}</h1>
 @endsection
 
 @section('breadcrumb')
@@ -12,8 +12,8 @@
         array(
             'Dashboard' => route('home'),
             'Kelola Kelas' => route('lecturer.classrooms.index'),
-            'Detail Kelas' => route('lecturer.classrooms.materi',$classroom->id),
-            'Tambah Materi' => '#'
+            'Detail Kelas' => '#',
+            'Materi Belajar' => '#'
         )
     )
   !!}
@@ -28,14 +28,16 @@
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('lecturer.materials.store') }}">
+                <form method="POST" action="{{ route('lecturer.materials.update', [$study->id]) }}">
                     @csrf
-                    @include('backend.lecturer.include.study_form', ['create' => true])
+                    @method('PATCH')
+
+                    @include('backend.lecturer.include.study_form', ['edit' => true])
 
                     <div class="row">
                         <div class="col-md-6">
                             <button type="submit" class="btn btn-primary">
-                                {{ __('Submit') }}
+                                Edit
                             </button>
                         </div>
                     </div>
@@ -47,4 +49,3 @@
     </div>
     <!-- /.card -->
 @endsection
-

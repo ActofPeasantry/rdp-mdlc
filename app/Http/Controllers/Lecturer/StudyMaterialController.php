@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Lecturer;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\StudyMaterial;
 use App\Models\Classroom;
 use Illuminate\Http\Request;
@@ -56,7 +57,6 @@ class StudyMaterialController extends Controller
     public function show(StudyMaterial $studyMaterial, $id)
     {
         $study = StudyMaterial::find($id);
-        // dd($study);
         return view('backend.lecturer.study_material.show', compact('study'));
 
     }
@@ -67,9 +67,13 @@ class StudyMaterialController extends Controller
      * @param  \App\Models\StudyMaterial  $studyMaterial
      * @return \Illuminate\Http\Response
      */
-    public function edit(StudyMaterial $studyMaterial)
+    public function edit(StudyMaterial $studyMaterial, $id)
     {
-        //
+        $user =  User::all();
+        $study= StudyMaterial::findOrFail($id);
+        $classroom = StudyMaterial::find($id)->classroom;
+        // dd($studyMaterial->id);
+        return view('backend.lecturer.study_material.edit', compact('study', 'classroom', 'user'));
     }
 
     /**
@@ -79,9 +83,17 @@ class StudyMaterialController extends Controller
      * @param  \App\Models\StudyMaterial  $studyMaterial
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StudyMaterial $studyMaterial)
+    public function update(Request $request, ToastrFactory  $flasher, $id)
     {
-        //
+        $study= StudyMaterial::findOrFail($id);
+        $study->title = $request->title;
+        $study->abstract = $request->abstract;
+        $study->description = $request->description;
+        $study->save();
+
+        $flasher->addSuccess('Data berhasil diubah');
+        // dd($request->all());
+        return redirect(route('lecturer.classrooms.materi', [$request->classroom_id]));
     }
 
     /**
@@ -90,8 +102,12 @@ class StudyMaterialController extends Controller
      * @param  \App\Models\StudyMaterial  $studyMaterial
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StudyMaterial $studyMaterial)
+    public function destroy(StudyMaterial $studyMaterial, ToastrFactory  $flasher, $id)
     {
-        //
+        $study= StudyMaterial::findorFail($id);
+        dd($study);
+        $study->delete();
+        $flasher->addWarning('Data dihapus');
+        return redirect()->back();
     }
 }

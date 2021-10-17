@@ -83,6 +83,8 @@ Route::prefix('lecturer')->middleware(['auth', 'auth.isLecturer'])->name('lectur
     // Study Material => lecturer.materials.index
     Route::resource('/materials', StudyMaterialController::class)->except(array('create'));
     Route::get('/materials/{material}/create', [StudyMaterialController::class, 'create'])->name('materials.create');
+    // Route::get('/materials/{material}/edit/{id}', [StudyMaterialController::class, 'edit'])->name('materials.edit');
+    // Question
     Route::resource('/questions', QuestionController::class);
     Route::get('/question/{id}/create', [QuestionController::class, 'create'])->name('questions.create');
     Route::patch('/classrooms/update/{id}', [ClassroomController::class, 'update'])->name('classrooms.update');
@@ -94,6 +96,11 @@ Route::prefix('student')->middleware(['auth', 'auth.isStudent'])->name('student.
     Route::get('/classroom/join', [ClassroomController::class, 'join'])->name('classrooms.join');
     Route::post('/classroom/storeJoin', [ClassroomController::class, 'storeJoin'])->name('classrooms.storeJoin');
     Route::resource('/scores', ScoreController::class);
+
+
+    // Study Material => lecturer.materials.index
+    Route::resource('/materials', StudyMaterialController::class)->except(array('create'));
+    Route::get('/materials/{material}/create', [StudyMaterialController::class, 'create'])->name('materials.create');
 });
 
 
