@@ -11,7 +11,7 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('password.email') }}">
+<form method="POST" action="{{ route('password.request') }}">
 @csrf
 
     <div class="input-group mb-3">
@@ -40,7 +40,7 @@
         <a href="{{ route('login') }}" class="text-center">Back to login</a>
     </div>
 
-</form> 
+</form>
 
 
 @endsection

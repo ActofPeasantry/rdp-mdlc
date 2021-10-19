@@ -1,8 +1,15 @@
 @extends('layout.authentication.register')
 {{-- @extends('layouts.app') --}}
 
+
 @section('content')
 <p class="login-box-msg">Sign in to start your session</p>
+
+@if (session('status'))
+    <div class="alert alert-success" role="alert">
+        {{ session('status') }}
+    </div>
+@endif
 
 <form method="POST" action="{{ route('login') }}">
     @csrf
@@ -28,7 +35,7 @@
         {{-- <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label> --}}
 
         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
-        
+
         @error('password')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -45,7 +52,7 @@
     <div class="input-group mb-3">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-            
+
             <label class="form-check-label" for="remember">
                 {{ __('Remember Me') }}
             </label>
