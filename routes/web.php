@@ -12,7 +12,7 @@ use App\Http\Controllers\Lecturer\StudyMaterialController;
 use App\Http\Controllers\Lecturer\ScoreDetailController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ScoreController;
-use App\Http\Controllers\User\ProfileCOntroller;
+use App\Http\Controllers\User\ProfileController;
 use App\Models\StudyMaterial;
 
 /*
