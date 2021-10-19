@@ -28,7 +28,7 @@
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('lecturer.questions.store') }}">
+                <form method="POST" action="{{ route('lecturer.questions.store') }}" enctype="multipart/form-data">
                     @csrf
                     {{-- Text --}}
                     <div class="form-group mb-12">
