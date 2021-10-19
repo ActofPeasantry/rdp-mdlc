@@ -28,7 +28,7 @@
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('lecturer.materials.update', [$study->id]) }}">
+                <form method="POST" action="{{ route('lecturer.materials.update', [$study->id]) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
 

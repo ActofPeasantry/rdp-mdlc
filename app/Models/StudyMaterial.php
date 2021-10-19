@@ -13,7 +13,9 @@ class StudyMaterial extends Model
         'title',
         'abstract',
         'description',
-        'classroom_id'
+        'classroom_id',
+        'video_file',
+        'audio_file',
     ];
 
     public function classroom()

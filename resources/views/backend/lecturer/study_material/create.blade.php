@@ -28,7 +28,7 @@
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('lecturer.materials.store') }}">
+                <form method="POST" action="{{ route('lecturer.materials.store') }}" enctype="multipart/form-data">
                     @csrf
                     @include('backend.lecturer.include.study_form', ['create' => true])
 

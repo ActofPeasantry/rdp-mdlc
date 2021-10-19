@@ -18,6 +18,8 @@ class CreateStudyMaterialsTable extends Migration
             $table->string('title');
             $table->mediumText('abstract');
             $table->longText('description');
+            $table->string('video_file')->nullable();
+            $table->string('audio_file')->nullable();
 
             $table->foreignId('classroom_id')->constrained('classrooms')->onDelete('cascade');
             $table->timestamps();
