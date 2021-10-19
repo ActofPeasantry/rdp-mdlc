@@ -8,7 +8,7 @@ use App\Models\StudyMaterial;
 use App\Models\Classroom;
 use Illuminate\Http\Request;
 use Flasher\Toastr\Prime\ToastrFactory;
-
+use Illuminate\Support\Facades\Storage;
 
 class StudyMaterialController extends Controller
 {
@@ -40,10 +40,23 @@ class StudyMaterialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ToastrFactory  $flasher)
+    public function store(Request $request, ToastrFactory  $flasher )
     {
-        // dd($request->all());
+        // dd( $request->except('videoFile', 'audioFile'));
         $study = StudyMaterial::create($request->all());
+
+        if ($request->videoFile != null) {
+            $path=$request->file('videoFile')->store('uploads', 'public');
+            $study->video_file = '../../../storage/'.$path;
+            $study->save();
+        }
+
+        if ($request->audioFile != null) {
+            $path=$request->file('videoFile')->store('uploads', 'public');
+            $study->audio_file = '../../../storage/'.$path;
+            $study->save();
+        }
+
         $flasher->addSuccess('Data berhasil ditambah');
         return redirect()->route('lecturer.classrooms.materi', $study->classroom_id);
     }
@@ -90,6 +103,18 @@ class StudyMaterialController extends Controller
         $study->abstract = $request->abstract;
         $study->description = $request->description;
         $study->save();
+
+        if ($request->videoFile != null) {
+            $path=$request->file('videoFile')->store('uploads', 'public');
+            $study->video_file = '../../../storage/'.$path;
+            $study->save();
+        }
+
+        if ($request->audioFile != null) {
+            $path=$request->file('videoFile')->store('uploads', 'public');
+            $study->audio_file = '../../../storage/'.$path;
+            $study->save();
+        }
 
         $flasher->addSuccess('Data berhasil diubah');
         // dd($request->all());

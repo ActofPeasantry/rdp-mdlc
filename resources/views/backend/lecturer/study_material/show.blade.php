@@ -26,6 +26,27 @@
                 <h3>{{ $study->title }}</h3>
             </div>
             <div class="card-body">
+                @if ($study->video_file != null)
+                    <video width="360" height="280" controls>
+                        <source src="{{ $study->video_file }}" type="video/mp4">
+                        <source src="{{ $study->video_file }}" type="video/ogg">
+                        Your browser does not support the video tag.
+                    </video>
+                @endif
+
+                <br>
+
+                @if ($study->audio_file != null)
+                    <audio width="360" height="280" controls>
+                        <source src="{{ $study->audio_file }}" type="audio/mpeg">
+                        <source src="{{ $study->audio_file }}" type="audio/ogg">
+                        Your browser does not support the video tag.
+                    </audio>
+                @endif
+
+                  <br>
+                  <br>
+
                 <input type="hidden" id="material-description" value="{{ $study->description }}">
                 <div id="description" name="description" class=""></div>
             </div>
