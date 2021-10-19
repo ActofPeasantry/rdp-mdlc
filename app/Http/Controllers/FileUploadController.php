@@ -15,6 +15,6 @@ class FileUploadController extends Controller
         // return response()->json(['location'=>"/storage/$path"]);
 
         $imgpath = request()->file('file')->store('uploads', 'public');
-        return response()->json(['location' => "/storage/$imgpath"]);
+        return response()->json(['location' => "https://mdlc.herokuapp.com/storage/$imgpath"]);
     }
 }
