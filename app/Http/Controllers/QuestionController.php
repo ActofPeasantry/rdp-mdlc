@@ -10,6 +10,7 @@ use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
 {
