@@ -6,11 +6,13 @@ use App\Http\Controllers\Admin\LecturerController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\Lecturer\StudyMaterialController;
 use App\Http\Controllers\Lecturer\ScoreDetailController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\User\ProfileCOntroller;
 use App\Models\StudyMaterial;
 
 /*
@@ -35,12 +37,22 @@ Route::get('/', function () {
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/classrooms', ClassroomController::class);
-    Route::get('/classroom/{id}/materi', [ClassroomController::class, 'materi'])->name('classrooms.materi');
-    Route::get('/classroom/{id}/members', [ClassroomController::class, 'members'])->name('classrooms.members');
-    Route::get('/classroom/{id}/task', [ClassroomController::class, 'task'])->name('classrooms.task');
-    Route::resource('/tasks', TaskController::class);
 
+
+// Upload Image Controller
+Route::post('/image-upload', [FileUploadController::class, 'imageUpload'])->name('imageUpload');
+Route::post('/video-upload', [FileUploadController::class, 'videoUpload'])->name('videopload');
+
+Route::resource('/classrooms', ClassroomController::class);
+Route::get('/classroom/{id}/materi', [ClassroomController::class, 'materi'])->name('classrooms.materi');
+Route::get('/classroom/{id}/members', [ClassroomController::class, 'members'])->name('classrooms.members');
+Route::get('/classroom/{id}/task', [ClassroomController::class, 'task'])->name('classrooms.task');
+Route::resource('/tasks', TaskController::class);
+
+// Profile Route
+Route::prefix('user')->middleware(['auth'])->name('user.')->group(function(){
+    Route::get('/profile', ProfileController::class)->name('profile');
+});
 
 //Admin Routes
 //Nama route : admin.user.{{nama_function_controller}} ex: admin.user.index
@@ -73,6 +85,8 @@ Route::prefix('lecturer')->middleware(['auth', 'auth.isLecturer'])->name('lectur
     // Study Material => lecturer.materials.index
     Route::resource('/materials', StudyMaterialController::class)->except(array('create'));
     Route::get('/materials/{material}/create', [StudyMaterialController::class, 'create'])->name('materials.create');
+    // Route::get('/materials/{material}/edit/{id}', [StudyMaterialController::class, 'edit'])->name('materials.edit');
+    // Question
     Route::resource('/questions', QuestionController::class);
     Route::get('/question/{id}/create', [QuestionController::class, 'create'])->name('questions.create');
     Route::patch('/classrooms/update/{id}', [ClassroomController::class, 'update'])->name('classrooms.update');
@@ -84,5 +98,12 @@ Route::prefix('student')->middleware(['auth', 'auth.isStudent'])->name('student.
     Route::get('/classroom/join', [ClassroomController::class, 'join'])->name('classrooms.join');
     Route::post('/classroom/storeJoin', [ClassroomController::class, 'storeJoin'])->name('classrooms.storeJoin');
     Route::resource('/scores', ScoreController::class);
+
+
+    // Study Material => lecturer.materials.index
+    Route::resource('/materials', StudyMaterialController::class)->except(array('create'));
+    Route::get('/materials/{material}/create', [StudyMaterialController::class, 'create'])->name('materials.create');
 });
+
+
 

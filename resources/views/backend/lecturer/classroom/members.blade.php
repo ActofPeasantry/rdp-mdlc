@@ -10,7 +10,9 @@
       @foreach ($classrooms->details as $classroom)
         <tr>
           <td>{{$classroom->students->name}} ({{$classroom->students->nim}})</td>
+          @can('isLecturer')
           <td><a class="btn btn-danger" href="javascript:void(0)" onclick="delete_members({{$classroom->students->id}})"><i class="fas fa-trash"></i>&nbsp;&nbsp;Hapus</a></td>
+          @endcan
         </tr>
         <form id="delete-members-form-{{$classroom->students->id}}" action="{{route('lecturer.classrooms.memberDestroy', $classroom->id)}}" method="POST">
           @csrf

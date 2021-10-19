@@ -80,7 +80,7 @@
     value="{{ old('name') }} @isset($user) {{$admin->address}}  @endisset"
     required autocomplete="address">
 
-    @error('birthplace')
+    @error('address')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
     </span>
@@ -94,7 +94,7 @@
     value="{{ old('name') }} @isset($user) {{$admin->phone}}  @endisset"
     required autocomplete="address">
 
-    @error('birthplace')
+    @error('phone')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
     </span>

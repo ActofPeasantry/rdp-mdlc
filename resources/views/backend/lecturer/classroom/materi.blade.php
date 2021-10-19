@@ -15,12 +15,26 @@
                         </div>
 
                         <div class="col-10">
-                            <a href="{{route('lecturer.materials.show', $material->id)}}">
-                                <h4>{{$material->title}}</h4>
 
-                                <input type="hidden" id="material-abstract" value="{{ $material->abstract }}">
-                                <div id="abstract-{{ $key }}"></div>
-                            </a>
+                            @can('isLecturer')
+                                <a href="{{route('lecturer.materials.show', $material->id)}}">
+                                    <h4>{{$material->title}}</h4>
+
+                                    <input type="hidden" id="material-abstract" value="{{ $material->abstract }}">
+                                    <div id="abstract-{{ $key }}"></div>
+                                </a>
+                                <a class="btn btn-primary" href="{{ route('lecturer.materials.edit', [$material->id]) }}"> Edit </a>
+                                {{-- <a class="btn btn-danger" href="{{ route('lecturer.materials.delete', [$material->id]) }}"> Hapus </a> --}}
+                                @endcan
+
+                            @can('isStudent')
+                                <a href="{{route('student.materials.show', $material->id)}}">
+                                    <h4>{{$material->title}}</h4>
+
+                                    <input type="hidden" id="material-abstract" value="{{ $material->abstract }}">
+                                    <div id="abstract-{{ $key }}"></div>
+                                </a>
+                            @endcan
                         </div>
                     </div>
                 </td>
