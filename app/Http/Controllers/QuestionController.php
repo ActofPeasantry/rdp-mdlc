@@ -47,6 +47,17 @@ class QuestionController extends Controller
         $question->text = $request->text;
         $question->no = $no+1;
         $question->task_id = $request->task_id;
+        if ($request->videoFile != null) {
+            $path=$request->file('videoFile')->store('uploads', 'public');
+            $question->video_file = '../../../storage/'.$path;
+            $question->save();
+        }
+
+        if ($request->audioFile != null) {
+            $path=$request->file('videoFile')->store('uploads', 'public');
+            $question->audio_file = '../../../storage/'.$path;
+            $question->save();
+        }
         $question->save();
 
         $flasher->addSuccess('Data berhasil ditambah');
@@ -92,6 +103,17 @@ class QuestionController extends Controller
         $questions = Question::findOrFail($id);
             $questions->text = $request->text;
             $questions->max_score = $request->max_score;
+            if ($request->videoFile != null) {
+            $path=$request->file('videoFile')->store('uploads', 'public');
+                $questions->video_file = '../../../storage/'.$path;
+                $questions->save();
+            }
+
+            if ($request->audioFile != null) {
+                $path=$request->file('videoFile')->store('uploads', 'public');
+                $questions->audio_file = '../../../storage/'.$path;
+                $questions->save();
+            }
         $questions->save();
 
         $flasher->addSuccess('Data berhasil diubah');

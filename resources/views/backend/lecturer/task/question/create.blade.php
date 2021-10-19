@@ -42,6 +42,17 @@
                         </span>
                         @enderror
                     </div>
+                    
+
+                    <div class="form-group mb-3">
+                        <label class="" for="video">Upload file video (opsional)</label> <br>
+                        <input type="file"  class="form-control-file" name="videoFile" id="videoFile" accept="video/*">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="" for="video">Upload file Audio (opsional)</label> <br>
+                        <input type="file" class="form-control-file" name="audioFile" id="audioFile"  accept="audio/*">
+                    </div>
 
 
                     <div class="text-center">

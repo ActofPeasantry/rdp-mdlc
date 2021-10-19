@@ -17,6 +17,8 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->integer('no');
             $table->text('text');
+            $table->string('video_file')->nullable();
+            $table->string('audio_file')->nullable();
             $table->timestamps();
 
             $table->foreignId('task_id')->constrained('tasks')->onDelete('cascade');

@@ -44,19 +44,34 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group row">
-                        <label class="col-xl-2 col-lg-2 col-form-label">Nilai Maksimal</label>
-                        <label class="col-xl-1 col-lg-1 col-form-label">:</label>
-                        <div class="col-lg-9 col-xl-9">
-                            <input type="number" name="max_score" id="max_score" value="{{$question->max_score}}"></input>
-
-                        @error('text')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                    
+                        <div class="form-group mb-3">
+                            <label for="video">Uploaded Video</label> <br>
+                            @if ($question->video_file != null)
+                                <video width="360" height="280" controls>
+                                    <source src="{{ $question->video_file }}" type="video/mp4">
+                                    <source src="{{ $question->video_file }}" type="video/ogg">
+                                    Your browser does not support the video tag.
+                                </video>
+                            @else
+                                Tidak ada video
+                            @endif
                         </div>
-                    </div>
+                    
+                    
+                        <div class="form-group mb-3">
+                            <label for="video">Uploaded Audio</label> <br>
+                            @if ($question->audio_file != null)
+                                <audio width="360" height="280" controls>
+                                    <source src="{{ $question->audio_file }}" type="audio/mpeg">
+                                    <source src="{{ $question->audio_file }}" type="audio/ogg">
+                                    Your browser does not support the video tag.
+                                </audio>
+                            @else
+                                Tidak ada Audio
+                            @endif
+                        </div>
+                    
 
                     <div class="text-center">
                         <a href="{{route('lecturer.tasks.show', $tasks->id)}}" class="btn btn-default">Batalkan</a>
