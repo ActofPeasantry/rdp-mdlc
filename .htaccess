@@ -1,4 +1,7 @@
 <IfModule mod_rewrite.c>
+post_max_size = 1000M
+upload_max_filesize = 1000M
+
 RewriteEngine on
 RewriteRule ^$ public/ [L]
 RewriteRule (.*) public/$1 [L]
