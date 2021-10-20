@@ -2,4 +2,7 @@
 RewriteEngine on
 RewriteRule ^$ public/ [L]
 RewriteRule (.*) public/$1 [L]
+
+upload_max_filesize = 20
+post_max_size = 20
 </IfModule>
