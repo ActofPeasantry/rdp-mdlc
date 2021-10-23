@@ -11,10 +11,10 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'Kelola Kelas' => route('classrooms.index'),
+            'Kelola Kelas' => url('classrooms?data=lecturer-data'),
             'Kelola Detail Kelas' => route('classrooms.task', $question->task->classroom_id),
-            'Kelola Pertanyaan' => route('tasks.show', $question->task_id),
-            'Detail' => '#'
+            'Kelola Tugas/Kuis' => route('lecturer.tasks.show', $question->task_id),
+            'Lihat Tugas/Kuis' => '#'
         )
     )
   !!}

@@ -11,9 +11,10 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'Kelola Kelas' => route('classrooms.index'),
-            'Kelola Detail Kelas' => route('classrooms.task', $tasks->classroom_id),
-            'Kelola Pertanyaan' => '#'
+            'Kelola Kelas' => url('classrooms?data=lecturer-data'),
+            'Detail Kelas' => route('classrooms.task', $tasks->classroom_id),
+            'Kelola Tugas/Kuis' => route('lecturer.tasks.show', $tasks->id),
+            'Edit Pertanyaan' => '#'
         )
     )
   !!}
@@ -35,7 +36,7 @@
                     <div class="form-group mb-3">
                         <label class="form-label">Pertanyaan</label>
                         <textarea name="text" id="text" cols="30" rows="10">{{$question->text}}</textarea>
-                        
+
                         <p></p>
 
                         @error('text')
@@ -44,7 +45,7 @@
                         </span>
                         @enderror
                     </div>
-                    
+
                         <div class="form-group mb-3">
                             <label for="video">Uploaded Video</label> <br>
                             @if ($question->video_file != null)
@@ -57,8 +58,8 @@
                                 Tidak ada video
                             @endif
                         </div>
-                    
-                    
+
+
                         <div class="form-group mb-3">
                             <label for="video">Uploaded Audio</label> <br>
                             @if ($question->audio_file != null)
@@ -71,7 +72,7 @@
                                 Tidak ada Audio
                             @endif
                         </div>
-                    
+
 
                     <div class="text-center">
                         <a href="{{route('lecturer.tasks.show', $tasks->id)}}" class="btn btn-default">Batalkan</a>

@@ -11,9 +11,10 @@
     breadcrumb(
         array(
             'Dashboard' => route('home'),
-            'Kelola Kelas' => route('classrooms.index'),
-            'Kelola Detail Kelas' => route('classrooms.task', $tasks->classroom_id),
-            'Kelola Pertanyaan' => '#'
+            'Kelola Kelas' => url('classrooms?data=lecturer-data'),
+            'Detail Kelas' => route('classrooms.task', $tasks->classroom_id),
+            'Kelola Tugas/Kuis' => route('lecturer.tasks.show', $tasks->id),
+            'Membuat Pertanyaan' => '#'
         )
     )
   !!}
@@ -42,7 +43,7 @@
                         </span>
                         @enderror
                     </div>
-                    
+
 
                     <div class="form-group mb-3">
                         <label class="" for="video">Upload file video (opsional)</label> <br>

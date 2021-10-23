@@ -8,15 +8,29 @@
 
 @section('breadcrumb')
 {{-- Custom helpers, cek app/Helpers/helpers.php dan composer.json di bagian file jalankan composer dump-autoload utk memakainya --}}
-{!!
-    breadcrumb(
-        array(
-            'Dashboard' => route('home'),
-            'Kelola Kelas' => route('lecturer.classrooms.index'),
-            'Kelola Detail Kelas' => '#'
-        )
-    )
-  !!}
+    @can('isLecturer')
+        {!!
+            breadcrumb(
+                array(
+                    'Dashboard' => route('home'),
+                    'Kelola Kelas' => url('classrooms?data=lecturer-data'),
+                    'Detail Kelas' => '#'
+                )
+            )
+        !!}
+    @endcan
+
+    @can('isStudent')
+        {!!
+            breadcrumb(
+                array(
+                    'Dashboard' => route('home'),
+                    'Kelola Kelas' => url('classrooms'),
+                    'Detail Kelas' => '#'
+                )
+            )
+        !!}
+    @endcan
 @endsection
 
 @section('content')
@@ -51,9 +65,9 @@
   }
 </style>
 <div class="container-fluid">
-  @can('isLecturer')
+    @can('isLecturer')
           @include('backend.lecturer.classroom.edit')
-        @endcan
+    @endcan
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -132,7 +146,7 @@
                 </button>
               </div>
               <form action="{{route('student.scores.index')}}">
-                <div class="modal-body">              
+                <div class="modal-body">
                       <p>Apakah inda ingin memulai kuis?</p>
                       <input type="hidden" id="task_id" name="task_id">
                 </div>
@@ -156,19 +170,20 @@
                     {{-- <span class="btn btn-block btn-outline-info btn-sm">Code : {{$classrooms->code}}</span> --}}
                 </div>
                 @can('isLecturer')
-                <div class="ml-auto col-lg-2">
-                    <!-- <a href="javascript:void(0)" onclick="edit({{$id}},'{{$classrooms->name}}')" class="btn btn-block btn-outline-success btn-sm">
-                        <i class="far fa-plus-square"></i>
-                        Tambah Kelas
-                    </a> -->
-                    <div class="dropdown">
+                    <div class="ml-auto col-lg-2">
+                    {{-- <div class="dropdown">
                       <button class="btn btn-block btn-outline-info btn-sm"><i class="far fa-plus-square"></i>&nbsp;&nbsp;Add Materials</button>
                       <div class="dropdown-content">
                         <a class="dropdown-item" href="{{ route('lecturer.materials.create', $classrooms->id) }}" >&nbsp;&nbsp;Materi</a>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalLong">&nbsp;&nbsp;Kuis</a>
-                      </div>
                     </div>
-                </div>
+                </div> --}}
+                    @if ($status=='materi')
+                        <a class="btn btn-block btn-outline-info btn-sm" href="{{ route('lecturer.materials.create', $classrooms->id) }}" >&nbsp;&nbsp; Tambah Materi</a>
+                    @elseif ($status=='kuis')
+                        <a class="btn btn-block btn-outline-info btn-sm" href="#" data-toggle="modal" data-target="#exampleModalLong">&nbsp;&nbsp;Kuis</a>
+                    @endif
+                    </div>
                 @endcan
                 <!-- @can('isStudent')
                 <div class="ml-auto col-lg-2">

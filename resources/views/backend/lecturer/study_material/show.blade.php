@@ -7,16 +7,32 @@
 
 @section('breadcrumb')
 {{-- Custom helpers, cek app/Helpers/helpers.php dan composer.json di bagian file jalankan composer dump-autoload utk memakainya --}}
-{!!
-    breadcrumb(
-        array(
-            'Dashboard' => route('home'),
-            'Kelola Kelas' => route('lecturer.classrooms.index'),
-            'Detail Kelas' => '#',
-            'Materi Belajar' => '#'
+@can('isLecturer')
+    {!!
+        breadcrumb(
+            array(
+                'Dashboard' => route('home'),
+                'Kelola Kelas' => url('classrooms?data=lecturer-data'),
+                'Detail Kelas' => route('lecturer.classrooms.materi', $study->classroom->id),
+                'Materi Belajar' => '#'
+            )
         )
-    )
-  !!}
+    !!}
+@endcan
+
+@can('isStudent')
+    {!!
+        breadcrumb(
+            array(
+                'Dashboard' => route('home'),
+                'Kelola Kelas' => url('classrooms'),
+                'Detail Kelas' => route('student.classrooms.materi', $study->classroom->id),
+                'Materi Belajar' => '#'
+            )
+        )
+    !!}
+@endcan
+
 @endsection
 
 @section('content')
