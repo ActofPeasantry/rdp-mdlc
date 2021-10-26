@@ -127,6 +127,7 @@
         media_live_embeds: true,
 
         images_upload_url: '/image-upload',
+        images_upload_credentials: true,
 
         plugins: [
             "advlist autolink lists link image charmap print preview anchor",

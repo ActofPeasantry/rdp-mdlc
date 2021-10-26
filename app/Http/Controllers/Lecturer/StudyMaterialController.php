@@ -46,16 +46,35 @@ class StudyMaterialController extends Controller
         $study = StudyMaterial::create($request->all());
 
         if ($request->videoFile != null) {
-            $path=$request->file('videoFile')->store('uploads', 'public');
-            $study->video_file = '../../../storage/'.$path;
-            $study->save();
+            $file = $request->file('videoFile')->getClientOriginalName();
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            $new_name = $filename.time().'.'.$extension;
+
+            $disk = Storage::disk('google');
+            $disk->put($new_name, file_get_contents($request->videoFile) );
+            $study->video_file = $disk->url($new_name);
+
+            // $path=$request->file('videoFile')->store('uploads', 'public');
+            // $study->video_file = '../../../storage/'.$path;
+            // $study->save();
         }
 
         if ($request->audioFile != null) {
-            $path=$request->file('videoFile')->store('uploads', 'public');
-            $study->audio_file = '../../../storage/'.$path;
-            $study->save();
+            $file = $request->file('audioFile')->getClientOriginalName();
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            $new_name = $filename.time().'.'.$extension;
+
+            $disk = Storage::disk('google');
+            $disk->put($new_name, file_get_contents($request->audioFile) );
+            $study->audio_file = $disk->url($new_name);
+
+            // $path=$request->file('videoFile')->store('uploads', 'public');
+            // $study->audio_file = '../../../storage/'.$path;
+            // $study->save();
         }
+        $study->save();
 
         $flasher->addSuccess('Data berhasil ditambah');
         return redirect()->route('lecturer.classrooms.materi', $study->classroom_id);
@@ -98,23 +117,43 @@ class StudyMaterialController extends Controller
      */
     public function update(Request $request, ToastrFactory  $flasher, $id)
     {
+        // dd($request->all());
         $study= StudyMaterial::findOrFail($id);
         $study->title = $request->title;
         $study->abstract = $request->abstract;
         $study->description = $request->description;
-        $study->save();
 
         if ($request->videoFile != null) {
-            $path=$request->file('videoFile')->store('uploads', 'public');
-            $study->video_file = '../../../storage/'.$path;
-            $study->save();
+            $file = $request->file('videoFile')->getClientOriginalName();
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            $new_name = $filename.time().'.'.$extension;
+
+            $disk = Storage::disk('google');
+            $disk->put($new_name, file_get_contents($request->videoFile) );
+            $study->video_file = $disk->url($new_name);
+
+            // $path=$request->file('videoFile')->store('uploads', 'public');
+            // $study->video_file = '../../../storage/'.$path;
+            // $study->save();
         }
 
         if ($request->audioFile != null) {
-            $path=$request->file('videoFile')->store('uploads', 'public');
-            $study->audio_file = '../../../storage/'.$path;
-            $study->save();
+            $file = $request->file('audioFile')->getClientOriginalName();
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            $new_name = $filename.time().'.'.$extension;
+
+            $disk = Storage::disk('google');
+            $disk->put($new_name, file_get_contents($request->audioFile) );
+            $study->audio_file = $disk->url($new_name);
+
+            // $path=$request->file('videoFile')->store('uploads', 'public');
+            // $study->audio_file = '../../../storage/'.$path;
+            // $study->save();
         }
+
+        $study->save();
 
         $flasher->addSuccess('Data berhasil diubah');
         // dd($request->all());

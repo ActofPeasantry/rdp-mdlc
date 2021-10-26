@@ -41,7 +41,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Upload Image Controller
 Route::post('/image-upload', [FileUploadController::class, 'imageUpload'])->name('imageUpload');
-Route::post('/video-upload', [FileUploadController::class, 'videoUpload'])->name('videopload');
 
 Route::resource('/classrooms', ClassroomController::class);
 Route::get('/classroom/{id}/materi', [ClassroomController::class, 'materi'])->name('classrooms.materi');
