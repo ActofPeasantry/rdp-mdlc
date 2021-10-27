@@ -42,8 +42,13 @@ class StudyMaterialController extends Controller
      */
     public function store(Request $request, ToastrFactory  $flasher )
     {
-        // dd( $request->except('videoFile', 'audioFile'));
-        $study = StudyMaterial::create($request->all());
+        // dd( $request->all());
+        // $study = StudyMaterial::create($request->all());
+        $study = new StudyMaterial();
+        $study->title = $request->title;
+        $study->abstract = $request->abstract;
+        $study->description = $request->description;
+        $study->classroom_id = $request->classroom_id;
 
         if ($request->videoFile != null) {
             $file = $request->file('videoFile')->getClientOriginalName();
