@@ -171,10 +171,10 @@ class StudyMaterialController extends Controller
      * @param  \App\Models\StudyMaterial  $studyMaterial
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StudyMaterial $studyMaterial, ToastrFactory  $flasher, $id)
+    public function destroy(ToastrFactory  $flasher, $id)
     {
         $study= StudyMaterial::findorFail($id);
-        dd($study);
+        // dd($study);
         $study->delete();
         $flasher->addWarning('Data dihapus');
         return redirect()->back();
