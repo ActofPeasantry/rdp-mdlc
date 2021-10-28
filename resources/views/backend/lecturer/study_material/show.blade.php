@@ -48,9 +48,9 @@
                         <source src="{{ $study->video_file }}" type="video/ogg">
                         Your browser does not support the video tag.
                     </video>
+                    <br>
+                    <br>
                 @endif
-
-                <br>
 
                 @if ($study->audio_file != null)
                     <audio width="360" height="280" controls>
@@ -58,10 +58,10 @@
                         <source src="{{ $study->audio_file }}" type="audio/ogg">
                         Your browser does not support the video tag.
                     </audio>
+                    <br>
+                    <br>
                 @endif
 
-                  <br>
-                  <br>
 
                 <input type="hidden" id="material-description" value="{{ $study->description }}">
                 <div id="description" name="description" class=""></div>

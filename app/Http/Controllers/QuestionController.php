@@ -48,16 +48,35 @@ class QuestionController extends Controller
         $question->text = $request->text;
         $question->no = $no+1;
         $question->task_id = $request->task_id;
+
         if ($request->videoFile != null) {
-            $path=$request->file('videoFile')->store('uploads', 'public');
-            $question->video_file = '../../../storage/'.$path;
-            $question->save();
+            $file = $request->file('videoFile')->getClientOriginalName();
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            $new_name = $filename.time().'.'.$extension;
+
+            $disk = Storage::disk('google');
+            $disk->put($new_name, file_get_contents($request->videoFile) );
+            $question->video_file = $disk->url($new_name);
+
+            // $path=$request->file('videoFile')->store('uploads', 'public');
+            // $question->video_file = '../../../storage/'.$path;
+            // $question->save();
         }
 
         if ($request->audioFile != null) {
-            $path=$request->file('videoFile')->store('uploads', 'public');
-            $question->audio_file = '../../../storage/'.$path;
-            $question->save();
+            $file = $request->file('audioFile')->getClientOriginalName();
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            $new_name = $filename.time().'.'.$extension;
+
+            $disk = Storage::disk('google');
+            $disk->put($new_name, file_get_contents($request->audioFile) );
+            $question->audio_file = $disk->url($new_name);
+
+            // $path=$request->file('videoFile')->store('uploads', 'public');
+            // $question->audio_file = '../../../storage/'.$path;
+            // $question->save();
         }
         $question->save();
 
@@ -102,23 +121,42 @@ class QuestionController extends Controller
     public function update(ToastrFactory  $flasher, Request $request, $id)
     {
         $questions = Question::findOrFail($id);
-            $questions->text = $request->text;
-            $questions->max_score = $request->max_score;
-            if ($request->videoFile != null) {
-            $path=$request->file('videoFile')->store('uploads', 'public');
-                $questions->video_file = '../../../storage/'.$path;
-                $questions->save();
-            }
+        $questions->text = $request->text;
+        $questions->max_score = $request->max_score;
 
-            if ($request->audioFile != null) {
-                $path=$request->file('videoFile')->store('uploads', 'public');
-                $questions->audio_file = '../../../storage/'.$path;
-                $questions->save();
-            }
+        if ($request->videoFile != null) {
+            $file = $request->file('videoFile')->getClientOriginalName();
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            $new_name = $filename.time().'.'.$extension;
+
+            $disk = Storage::disk('google');
+            $disk->put($new_name, file_get_contents($request->videoFile) );
+            $questions->video_file = $disk->url($new_name);
+
+            // $path=$request->file('videoFile')->store('uploads', 'public');
+            // $questions->video_file = '../../../storage/'.$path;
+            // $questions->save();
+        }
+
+        if ($request->audioFile != null) {
+            $file = $request->file('audioFile')->getClientOriginalName();
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            $new_name = $filename.time().'.'.$extension;
+
+            $disk = Storage::disk('google');
+            $disk->put($new_name, file_get_contents($request->audioFile) );
+            $questions->audio_file = $disk->url($new_name);
+
+            // $path=$request->file('videoFile')->store('uploads', 'public');
+            // $questions->audio_file = '../../../storage/'.$path;
+            // $questions->save();
+        }
+
         $questions->save();
 
         $flasher->addSuccess('Data berhasil diubah');
-
         return redirect(route('lecturer.tasks.show', $questions->task_id));
     }
 

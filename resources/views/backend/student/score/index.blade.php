@@ -28,12 +28,31 @@
         </div>
         <div class="card-body">
             <div class="container-fluid">
+                @if ($question->video_file != null)
+                    <video width="360" height="280" controls>
+                        <source src="{{ $question->video_file }}" type="video/mp4">
+                        <source src="{{ $question->video_file }}" type="video/ogg">
+                        Your browser does not support the video tag.
+                    </video>
+                    <br>
+                    <br>
+                @endif
 
-            <?php echo nl2br($question->text) ; ?>
-            <br>
-            <br>
+                @if ($question->audio_file != null)
+                    <audio width="360" height="280" controls>
+                        <source src="{{ $question->audio_file }}" type="audio/mpeg">
+                        <source src="{{ $question->audio_file }}" type="audio/ogg">
+                        Your browser does not support the video tag.
+                    </audio>
+                    <br>
+                    <br>
+                @endif
 
-            <form method="POST" action="{{route('student.scores.store')}}">
+                <?php echo nl2br($question->text) ; ?>
+                <br>
+                <br>
+
+                <form method="POST" action="{{route('student.scores.store')}}">
                     @csrf
                     {{-- Text --}}
                     <div class="form-group mb-12">

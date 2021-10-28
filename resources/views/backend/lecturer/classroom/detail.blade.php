@@ -181,7 +181,7 @@
                     @if ($status=='materi')
                         <a class="btn btn-block btn-outline-info btn-sm" href="{{ route('lecturer.materials.create', $classrooms->id) }}" >&nbsp;&nbsp; Tambah Materi</a>
                     @elseif ($status=='kuis')
-                        <a class="btn btn-block btn-outline-info btn-sm" href="#" data-toggle="modal" data-target="#exampleModalLong">&nbsp;&nbsp;Kuis</a>
+                        <a class="btn btn-block btn-outline-info btn-sm" href="#" data-toggle="modal" data-target="#exampleModalLong">&nbsp;&nbsp; Tambah Kuis</a>
                     @endif
                     </div>
                 @endcan
@@ -270,7 +270,7 @@
         }
     </script>
 
-    <script>
+    {{-- <script>
         var $n = 0;
         $('#table_id > tbody  > tr').each(function(){
             var $log = $( "#abstract-" + $n ),
@@ -282,5 +282,5 @@
             $log.append( html );
             $n++;
         });
-    </script>
+    </script> --}}
 @endsection

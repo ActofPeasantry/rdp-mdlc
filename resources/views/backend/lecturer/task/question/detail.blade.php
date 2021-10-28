@@ -14,7 +14,7 @@
             'Kelola Kelas' => url('classrooms?data=lecturer-data'),
             'Kelola Detail Kelas' => route('classrooms.task', $question->task->classroom_id),
             'Kelola Tugas/Kuis' => route('lecturer.tasks.show', $question->task_id),
-            'Lihat Tugas/Kuis' => '#'
+            'Lihat Pertanyaan' => '#'
         )
     )
   !!}
@@ -24,12 +24,31 @@
     <!-- Default box -->
     <div class="card col-md-12">
         <div class="card-header">
-            <h3 class="card-title">Menambahkan Pertanyaan</h3>
+            <h3 class="card-title">Lihat Pertanyaan</h3>
         </div>
         <div class="card-body">
             <div class="container-fluid">
+                @if ($question->video_file != null)
+                    <video width="360" height="280" controls>
+                        <source src="{{ $question->video_file }}" type="video/mp4">
+                        <source src="{{ $question->video_file }}" type="video/ogg">
+                        Your browser does not support the video tag.
+                    </video>
+                    <br>
+                    <br>
+                @endif
 
-            <?php echo nl2br($question->text) ; ?>
+                @if ($question->audio_file != null)
+                    <audio width="360" height="280" controls>
+                        <source src="{{ $question->audio_file }}" type="audio/mpeg">
+                        <source src="{{ $question->audio_file }}" type="audio/ogg">
+                        Your browser does not support the video tag.
+                    </audio>
+                    <br>
+                    <br>
+                @endif
+
+                <?php echo nl2br($question->text) ; ?>
 
             </div>
         </div>
