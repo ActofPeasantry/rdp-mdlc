@@ -171,9 +171,12 @@ class ScoreController extends Controller
                 }
             }
             else{
-                $flasher->addWarning("Kuis hanya dapat dikerjakan pada waktu yang ditentukan");
+                $flasher->addWarning("Kuis Telah Selesai Dikerjakan");
                 return redirect(route('classrooms.task', $task->classroom_id));
             }
+        }else{
+            $flasher->addWarning("Kuis hanya dapat dikerjakan pada waktu yang ditentukan");
+            return redirect(route('classrooms.task', $task->classroom_id));
         }
     }
 
