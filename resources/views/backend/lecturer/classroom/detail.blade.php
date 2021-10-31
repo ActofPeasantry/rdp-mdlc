@@ -236,13 +236,6 @@
 
 @section('javascripts')
     <script>
-        $(document).ready( function () {
-            $('#table_id').DataTable();
-        } );
-
-    </script>
-
-    <script>
         function modal(id) {
             console.log(id);
             $('#task_id').val(id);

@@ -101,7 +101,7 @@ class ClassroomController extends Controller
             }
         }else{
             $flasher->addError('Kelas tidak tersedia');
-        }   
+        }
         return redirect(route('lecturer.classrooms.index', 'data=data-student'));
     }
 
@@ -154,10 +154,13 @@ class ClassroomController extends Controller
     public function task($id)
     {
         $classrooms = Classroom::find($id);
-        $tasks = Task::where('classroom_id', $id)->orderBy('created_at', 'asc')->get();
+        $tasks = Task::where('classroom_id', $id)->orderBy('created_at', 'desc')->get();
         $student= Student::where('user_id', Auth::user()->id)->first();
-        // dd($student->id);
-        // dd( $tasks[0]->scores->where('student_id', $student->id)->first()->total_score);
+
+        // dd($tasks[1]->scores);
+        // dd($tasks[1]->scores[1]->student_id == $student->id);
+        // dd( $tasks[1]->scores->total_score );
+        // dd( $tasks[0]->scores->where('student_id', $student->id)->first());
         $status = 'kuis';
         return view('backend.lecturer.classroom.detail', compact('classrooms','tasks','id','status', 'student'));
     }

@@ -171,7 +171,7 @@ class ScoreController extends Controller
                 }
             }
             else{
-                $flasher->addWarning("Kuis Telah Selesai Dikerjakan");
+                $flasher->addSuccess("Kuis Telah Selesai Dikerjakan");
                 return redirect(route('classrooms.task', $task->classroom_id));
             }
         }else{

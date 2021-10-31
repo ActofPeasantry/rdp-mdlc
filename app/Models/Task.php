@@ -29,7 +29,7 @@ class Task extends Model
 
     public function scores()
     {
-        return $this->hasOne('App\Models\Score', 'task_id', 'id');
+        return $this->hasMany('App\Models\Score', 'task_id', 'id');
     }
 
 

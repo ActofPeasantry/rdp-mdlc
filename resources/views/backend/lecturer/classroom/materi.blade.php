@@ -54,7 +54,7 @@
                                     <a href="{{route('student.materials.show', $material->id)}}">
                                         <h4>{{$material->title}}</h4>
 
-                                        <input type="hidden" id="material-abstract" value="{{ $material->abstract }}">
+                                        <input type="hidden" id="material-abstract-{{ $key }}" value="{{ $material->abstract }}">
                                         <div id="abstract-{{ $key }}"></div>
                                     </a>
                                 @endcan
@@ -69,6 +69,14 @@
 <!-- /.card-body -->
 
 @section('javascripts')
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable({
+                "order": [[ 0, "asc" ]]
+            });
+        } );
+    </script>
+
     <script>
         var $n = 0;
         $('#table_id > tbody  > tr').each(function(){
