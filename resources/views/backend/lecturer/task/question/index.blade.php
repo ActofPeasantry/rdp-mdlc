@@ -81,14 +81,16 @@
                         </div>
                         <div class="col-4">
 
-                            <p><?php
-                              $karakter = strlen($question->text);
-                              if($karakter<20){
-                                echo substr(nl2br($question->text), 0, 20) ;
-                              }else{
-                                echo substr(nl2br($question->text), 0, 20).' ...';
-                              }
-                            ?>
+                            <p>
+                                <?php
+                                    $karakter = strlen($question->text);
+                                    if($karakter<20){
+                                    echo substr(nl2br($question->text), 0, 20) ;
+                                    }else{
+                                    echo substr(nl2br($question->text), 0, 20).'...';
+                                    }
+                                ?>
+                            </p>
 
                         </div>
                         <div class="ml-right col-lg-2">
