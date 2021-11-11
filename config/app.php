@@ -52,9 +52,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://mdlc.herokuapp.com/'),
+    // 'url' => env('APP_URL', 'https://mdlc.herokuapp.com/'),
 
-    'asset_url' => env('ASSET_URL', 'https://mdlc.herokuapp.com/'),
+    // 'asset_url' => env('ASSET_URL', 'https://mdlc.herokuapp.com/'),
 
     /*
     |--------------------------------------------------------------------------
