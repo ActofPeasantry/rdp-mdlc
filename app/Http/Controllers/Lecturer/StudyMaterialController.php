@@ -51,33 +51,31 @@ class StudyMaterialController extends Controller
         $study->classroom_id = $request->classroom_id;
 
         if ($request->videoFile != null) {
-            $file = $request->file('videoFile')->getClientOriginalName();
-            $filename = pathinfo($file, PATHINFO_FILENAME);
-            $extension = pathinfo($file, PATHINFO_EXTENSION);
-            $new_name = $filename.time().'.'.$extension;
+            // $file = $request->file('videoFile')->getClientOriginalName();
+            // $filename = pathinfo($file, PATHINFO_FILENAME);
+            // $extension = pathinfo($file, PATHINFO_EXTENSION);
+            // $new_name = $filename.time().'.'.$extension;
 
-            $disk = Storage::disk('google');
-            $disk->put($new_name, file_get_contents($request->videoFile) );
-            $study->video_file = $disk->url($new_name);
+            // $disk = Storage::disk('google');
+            // $disk->put($new_name, file_get_contents($request->videoFile) );
+            // $study->video_file = $disk->url($new_name);
 
-            // $path=$request->file('videoFile')->store('uploads', 'public');
-            // $study->video_file = '../../../storage/'.$path;
-            // $study->save();
+            $path=$request->file('videoFile')->store('uploads', 'public');
+            $study->video_file = '../../../storage/'.$path;
         }
 
         if ($request->audioFile != null) {
-            $file = $request->file('audioFile')->getClientOriginalName();
-            $filename = pathinfo($file, PATHINFO_FILENAME);
-            $extension = pathinfo($file, PATHINFO_EXTENSION);
-            $new_name = $filename.time().'.'.$extension;
+            // $file = $request->file('audioFile')->getClientOriginalName();
+            // $filename = pathinfo($file, PATHINFO_FILENAME);
+            // $extension = pathinfo($file, PATHINFO_EXTENSION);
+            // $new_name = $filename.time().'.'.$extension;
 
-            $disk = Storage::disk('google');
-            $disk->put($new_name, file_get_contents($request->audioFile) );
-            $study->audio_file = $disk->url($new_name);
+            // $disk = Storage::disk('google');
+            // $disk->put($new_name, file_get_contents($request->audioFile) );
+            // $study->audio_file = $disk->url($new_name);
 
-            // $path=$request->file('videoFile')->store('uploads', 'public');
-            // $study->audio_file = '../../../storage/'.$path;
-            // $study->save();
+            $path=$request->file('audioFile')->store('uploads', 'public');
+            $study->audio_file = '../../../storage/'.$path;
         }
         $study->save();
 
@@ -129,33 +127,31 @@ class StudyMaterialController extends Controller
         $study->description = $request->description;
 
         if ($request->videoFile != null) {
-            $file = $request->file('videoFile')->getClientOriginalName();
-            $filename = pathinfo($file, PATHINFO_FILENAME);
-            $extension = pathinfo($file, PATHINFO_EXTENSION);
-            $new_name = $filename.time().'.'.$extension;
+            // $file = $request->file('videoFile')->getClientOriginalName();
+            // $filename = pathinfo($file, PATHINFO_FILENAME);
+            // $extension = pathinfo($file, PATHINFO_EXTENSION);
+            // $new_name = $filename.time().'.'.$extension;
 
-            $disk = Storage::disk('google');
-            $disk->put($new_name, file_get_contents($request->videoFile) );
-            $study->video_file = $disk->url($new_name);
+            // $disk = Storage::disk('google');
+            // $disk->put($new_name, file_get_contents($request->videoFile) );
+            // $study->video_file = $disk->url($new_name);
 
-            // $path=$request->file('videoFile')->store('uploads', 'public');
-            // $study->video_file = '../../../storage/'.$path;
-            // $study->save();
+            $path=$request->file('videoFile')->store('uploads', 'public');
+            $study->video_file = '../../../storage/'.$path;
         }
 
         if ($request->audioFile != null) {
-            $file = $request->file('audioFile')->getClientOriginalName();
-            $filename = pathinfo($file, PATHINFO_FILENAME);
-            $extension = pathinfo($file, PATHINFO_EXTENSION);
-            $new_name = $filename.time().'.'.$extension;
+            // $file = $request->file('audioFile')->getClientOriginalName();
+            // $filename = pathinfo($file, PATHINFO_FILENAME);
+            // $extension = pathinfo($file, PATHINFO_EXTENSION);
+            // $new_name = $filename.time().'.'.$extension;
 
-            $disk = Storage::disk('google');
-            $disk->put($new_name, file_get_contents($request->audioFile) );
-            $study->audio_file = $disk->url($new_name);
+            // $disk = Storage::disk('google');
+            // $disk->put($new_name, file_get_contents($request->audioFile) );
+            // $study->audio_file = $disk->url($new_name);
 
-            // $path=$request->file('videoFile')->store('uploads', 'public');
-            // $study->audio_file = '../../../storage/'.$path;
-            // $study->save();
+            $path=$request->file('audioFile')->store('uploads', 'public');
+            $study->audio_file = '../../../storage/'.$path;
         }
 
         $study->save();
