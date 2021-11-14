@@ -8,11 +8,14 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://mdlc.herokuapp.com/assets/plugins/fontawesome-free/css/all.min.css">
+  {{-- <link rel="stylesheet" href="https://mdlc.herokuapp.com/assets/plugins/fontawesome-free/css/all.min.css"> --}}
+  <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="https://mdlc.herokuapp.com/assets/dist/css/adminlte.min.css">
+  {{-- <link rel="stylesheet" href="https://mdlc.herokuapp.com/assets/dist/css/adminlte.min.css"> --}}
+  <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
   <!-- My style -->
-  <link rel="stylesheet" type="text/css" href="https://mdlc.herokuapp.com/css/my.css">
+  {{-- <link rel="stylesheet" type="text/css" href="https://mdlc.herokuapp.com/css/my.css"> --}}
+  <link rel="stylesheet" type="text/css" href="{{asset('css/my.css')}}">
   {{-- Datatables --}}
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css"/>
   {{-- TinyMCE --}}
@@ -104,11 +107,14 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="https://mdlc.herokuapp.com/assets/plugins/jquery/jquery.min.js"></script>
+{{-- <script src="https://mdlc.herokuapp.com/assets/plugins/jquery/jquery.min.js"></script> --}}
+<script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
-<script src="https://mdlc.herokuapp.com/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+{{-- <script src="https://mdlc.herokuapp.com/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script> --}}
+<script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="https://mdlc.herokuapp.com/assets/dist/js/adminlte.min.js"></script>
+{{-- <script src="https://mdlc.herokuapp.com/assets/dist/js/adminlte.min.js"></script> --}}
+<script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
 <script src="https://cdn.tiny.cloud/1/f0lkn85hv5t7927fkoo2srpw58nonm2nw0o6bn8938a94onp/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 {{-- Datatables --}}
