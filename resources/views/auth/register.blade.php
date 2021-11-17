@@ -1,5 +1,8 @@
 @extends('layout.authentication.register')
 
+@section('title')
+    <title>GoBelajarAsik | Register Page</title>
+@endsection
 
 @section('content')
 @if($_GET['role']=='dosen')

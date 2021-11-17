@@ -1,6 +1,9 @@
 @extends('layout.authentication.register')
 {{-- @extends('layouts.app') --}}
 
+@section('title')
+    <title>GoBelajarAsik | Login Page</title>
+@endsection
 
 @section('content')
 <p class="login-box-msg">Sign in to start your session</p>

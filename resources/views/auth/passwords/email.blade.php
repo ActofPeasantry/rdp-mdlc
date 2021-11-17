@@ -1,6 +1,10 @@
 @extends('layout.authentication.register')
 {{-- @extends('layouts.app') --}}
 
+@section('title')
+    <title>GoBelajarAsik | Verification Page</title>
+@endsection
+
 @section('content')
 
 <p class="login-box-msg">You are only one step a way from your new password, recover your password now.
