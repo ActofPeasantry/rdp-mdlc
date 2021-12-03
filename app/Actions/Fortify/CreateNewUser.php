@@ -44,8 +44,6 @@ class CreateNewUser implements CreatesNewUsers
 
                 $validator->validate();
 
-
-
                 $user = new User;
                 $user->username = $input['username'];
                 $user->email = $input['email'];
@@ -79,6 +77,7 @@ class CreateNewUser implements CreatesNewUsers
                     ],
                     'password' => $this->passwordRules(),
                 ])->validate();
+
                 $user = new User;
                 $user->username = $input['username'];
                 $user->email = $input['email'];

@@ -41,20 +41,21 @@
                 </div>
             </td>
             @can('isStudent')
-            <td>
-                @foreach ($task->scores as $score)
-
-                @endforeach
-                @if ( $score->student_id == $student->id )
-                    @if (!isset($score->total_score))
-                        <p class="text-center" > Tugas Belum Dinilai </p>
+                <td>
+                    @if (count($task->scores) == 0)
+                        <p class="text-center"> Tugas Belum dikerjakan </p>
                     @else
-                        <p class="text-center" >Nilai :{{ $score->total_score }}</p>
+                        @foreach ($task->scores as $score)
+                            @if ( $score->student_id == $student->id )
+                                @if (!isset($score->total_score))
+                                    <p class="text-center" > Tugas Belum Dinilai </p>
+                                @else
+                                    <p class="text-center" >Nilai :{{ $score->total_score }}</p>
+                                @endif
+                            @endif
+                        @endforeach
                     @endif
-                @else
-                    <p class="text-center"> Tugas Belum dikerjakan </p>
-                @endif
-            </td>
+                </td>
             @endcan
         </tr>
       @endforeach

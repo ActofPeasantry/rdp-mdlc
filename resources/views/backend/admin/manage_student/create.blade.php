@@ -27,9 +27,9 @@
         <div class="card-body">
             <div class="container-fluid">
 
-                <form method="POST" action="{{ route('admin.admins.store') }}">
+                <form method="POST" action="{{ route('admin.students.store') }}">
                     @csrf
-                    @include('backend.admin.include.admin_form', ['create' => true])
+                    @include('backend.admin.include.student_form', ['create' => true])
 
                 </form>
 

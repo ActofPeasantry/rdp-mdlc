@@ -157,10 +157,11 @@ class ClassroomController extends Controller
         $tasks = Task::where('classroom_id', $id)->orderBy('created_at', 'desc')->get();
         $student= Student::where('user_id', Auth::user()->id)->first();
 
-        // dd($tasks[1]->scores);
+        // dd($student);
+        // dd( count($tasks[0]->scores) == 0);
         // dd($tasks[1]->scores[1]->student_id == $student->id);
         // dd( $tasks[1]->scores->total_score );
-        // dd( $tasks[0]->scores->where('student_id', $student->id)->first());
+        // dd( $tasks[1]->scores->where('student_id', $student->id)->first());
         $status = 'kuis';
         return view('backend.lecturer.classroom.detail', compact('classrooms','tasks','id','status', 'student'));
     }
