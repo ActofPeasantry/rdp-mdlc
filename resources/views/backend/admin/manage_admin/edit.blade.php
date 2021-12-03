@@ -2,7 +2,7 @@
 
 
 @section('page_name')
-    <h1>Kelola Mahasiswa</h1>
+    <h1>Kelola Admin</h1>
 @endsection
 
 @section('breadcrumb')

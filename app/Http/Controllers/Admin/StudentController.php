@@ -44,6 +44,7 @@ class StudentController extends Controller
     {
         $user = User::create($request->except([
             '_Token',
+            'name',
             'nim',
             'birthplace',
             'phone',
@@ -51,7 +52,7 @@ class StudentController extends Controller
             'user_id',])
         );
 
-        
+
 
 
         $student = new Student;

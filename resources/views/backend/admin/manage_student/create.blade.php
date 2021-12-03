@@ -2,7 +2,7 @@
 
 
 @section('page_name')
-    <h1>Kelola Admin</h1>
+    <h1>Kelola Mahasiswa</h1>
 @endsection
 
 @section('breadcrumb')
@@ -22,7 +22,7 @@
     <!-- Default box -->
     <div class="card col-md-10">
         <div class="card-header">
-          <h3 class="card-title">Menambahkan Admin</h3>
+          <h3 class="card-title">Menambahkan Mahasiswa</h3>
         </div>
         <div class="card-body">
             <div class="container-fluid">
@@ -30,7 +30,6 @@
                 <form method="POST" action="{{ route('admin.students.store') }}">
                     @csrf
                     @include('backend.admin.include.student_form', ['create' => true])
-
                 </form>
 
             </div>
