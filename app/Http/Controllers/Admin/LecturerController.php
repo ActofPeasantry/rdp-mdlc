@@ -43,30 +43,35 @@ class LecturerController extends Controller
      */
     public function store(Request $request, ToastrFactory  $flasher)
     {
-        $user = User::create($request->except([
-            '_Token',
-            'nip',
-            'name',
-            'birthplace',
-            'phone',
-            'address',
-            'user_id',])
-        );
+        if(User::where('email', $request->email)->count() > 0){
+            $flasher->addError('Email sudah digunakan user lain');
+            return redirect()->back();
+        }
+        else{
+            $user = User::create($request->except([
+                '_Token',
+                'nip',
+                'name',
+                'birthplace',
+                'phone',
+                'address',
+                'user_id',])
+            );
 
-        // dd($user->id);
-        $lecturer = new Lecturer;
-            $lecturer->nip = $request->nip;
-            $lecturer->name = $request->name;
-            $lecturer->birthplace = $request->birthplace;
-            $lecturer->phone = $request->phone;
-            $lecturer->address = $request->address;
+            // dd($user->id);
+            $lecturer = new Lecturer;
+                $lecturer->nip = $request->nip;
+                $lecturer->name = $request->name;
+                $lecturer->birthplace = $request->birthplace;
+                $lecturer->phone = $request->phone;
+                $lecturer->address = $request->address;
 
-            $lecturer->user_id = $user->id;
-        $lecturer->save();
+                $lecturer->user_id = $user->id;
+            $lecturer->save();
 
-        $flasher->addSuccess('Data berhasil ditambah');
-
-        return redirect(route('admin.lecturers.index'));
+            $flasher->addSuccess('Data berhasil ditambah');
+            return redirect(route('admin.lecturers.index'));
+        }
     }
 
     /**

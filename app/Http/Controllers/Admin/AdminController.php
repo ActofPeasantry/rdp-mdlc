@@ -45,28 +45,34 @@ class AdminController extends Controller
      */
     public function store(Request $request, ToastrFactory  $flasher)
     {
-        $user = User::create($request->except([
-            '_Token',
-            'name',
-            'birthplace',
-            'phone',
-            'address',
-            'user_id',])
-        );
+        if(User::where('email', $request->email)->count() > 0){
+            $flasher->addError('Email sudah digunakan user lain');
+            return redirect()->back();
+        }
+        else{
+            $user = User::create($request->except([
+                '_Token',
+                'name',
+                'birthplace',
+                'phone',
+                'address',
+                'user_id',])
+            );
 
-        // dd($user->id);
-        $admin = new Admin;
-            $admin->name = $request->name;
-            $admin->birthplace = $request->birthplace;
-            $admin->phone = $request->phone;
-            $admin->address = $request->address;
+            // dd($user->id);
+            $admin = new Admin;
+                $admin->name = $request->name;
+                $admin->birthplace = $request->birthplace;
+                $admin->phone = $request->phone;
+                $admin->address = $request->address;
 
-            $admin->user_id = $user->id;
-        $admin->save();
+                $admin->user_id = $user->id;
+            $admin->save();
 
-        $flasher->addSuccess('Data berhasil ditambah');
+            $flasher->addSuccess('Data berhasil ditambah');
 
-        return redirect(route('admin.admins.index'));
+            return redirect(route('admin.admins.index'));
+        }
     }
 
     /**

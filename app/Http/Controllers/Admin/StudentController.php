@@ -42,32 +42,35 @@ class StudentController extends Controller
      */
     public function store(Request $request, ToastrFactory  $flasher)
     {
-        $user = User::create($request->except([
-            '_Token',
-            'name',
-            'nim',
-            'birthplace',
-            'phone',
-            'address',
-            'user_id',])
-        );
+        if(User::where('email', $request->email)->count() > 0){
+            $flasher->addError('Email sudah digunakan user lain');
+            return redirect()->back();
+        }
+        else{
+            $user = User::create($request->except([
+                '_Token',
+                'name',
+                'nim',
+                'birthplace',
+                'phone',
+                'address',
+                'user_id',])
+            );
 
 
+            $student = new Student;
+                $student->nim = $request->nim;
+                $student->name = $request->name;
+                $student->birthplace = $request->birthplace;
+                $student->phone = $request->phone;
+                $student->address = $request->address;
 
+                $student->user_id = $user->id;
+            $student->save();
 
-        $student = new Student;
-            $student->nim = $request->nim;
-            $student->name = $request->name;
-            $student->birthplace = $request->birthplace;
-            $student->phone = $request->phone;
-            $student->address = $request->address;
-
-            $student->user_id = $user->id;
-        $student->save();
-
-        $flasher->addSuccess('Data berhasil ditambah');
-
-        return redirect(route('admin.students.index'));
+            $flasher->addSuccess('Data berhasil ditambah');
+            return redirect(route('admin.students.index'));
+        }
     }
 
     /**
